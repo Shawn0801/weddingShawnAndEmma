@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shawn & Emma Wedding</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Noto+Serif+JP:wght@200;300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Caveat&family=Cedarville+Cursive&family=Indie+Flower&family=Nothing+You+Could+Do&family=Oooh+Baby&family=Reenie+Beanie&family=Shadows+Into+Light&display=swap"
+    rel="stylesheet">
+
+  <!-- Preload critical images for faster initial render -->
+  <link rel="preload" as="image" href="/img/HSU_3764.jpg">
+  <link rel="preload" as="image" href="/img/HSU_3732.jpg">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+
+
+  <canvas id="tulip-canvas"></canvas>
+
+  <!-- LOADER -->
+
+  <div id="loader">
+    <div class="loader-icon">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle class="silhouette-path" cx="45" cy="60" r="25" />
+        <circle class="silhouette-path" cx="75" cy="60" r="25" style="animation-delay: 0.3s" />
+        <path class="silhouette-path" d="M60 35 L60 20 M55 22 L60 15 L65 22" style="animation-delay: 0.8s" />
+      </svg>
+    </div>
+    <div class="loader-text">Shawn & Emma</div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-dots" id="navDots">
+    <div class="nav-dot active" data-target="hero" data-label="Top"></div>
+    <div class="nav-dot" data-target="intro-groom" data-label="Groom"></div>
+    <div class="nav-dot" data-target="intro-bride" data-label="Bride"></div>
+    <div class="nav-dot" data-target="gallery-wedding" data-label="Wedding"></div>
+    <div class="nav-dot" data-target="gallery-prewedding" data-label="Pre-Wedding"></div>
+    <div class="nav-dot" data-target="footer" data-label="Details"></div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <span class="floating-kanji" style="top: 10%; left: -2%;">結</span>
+    <span class="floating-kanji" style="bottom: 10%; right: -2%;">婚</span>
+
+    <div class="hero-portrait">
+      <div class="hero-portrait-inner">
+        <img src="/img/HSU_3338.jpg" alt="Shawn & Emma" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+
+
+    <div class="hero-content">
+      <p class="hero-date">We're Getting Married</p>
+      <h1 class="hero-names">
+        <span class="hero-name">Shawn</span>
+        <span class="hero-ampersand">&</span>
+        <span class="hero-name">Emma</span>
+      </h1>
+      <p class="hero-jp">永遠の愛を誓って</p>
+    </div>
+
+    <!-- ═══ HANDS WITH RED STRING ═══
+       Two silhouette hands reaching toward center from left and right,
+       pinkies hooked together with a red string (赤い糸) -->
+    <div class="hero-hands" id="heroHands">
+      <svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <!-- Left hand (Shawn) — reaching from left toward center -->
+        <g class="hand-path" id="handLeft">
+          <!-- Wrist to palm -->
+          <path d="M40,130 Q60,125 80,115 Q95,108 105,95" />
+          <!-- Thumb -->
+          <path d="M85,115 Q75,100 80,88 Q85,80 92,82" />
+          <!-- Index finger -->
+          <path d="M105,95 Q115,78 125,68 Q130,63 128,58" />
+          <!-- Middle finger -->
+          <path d="M108,93 Q120,72 130,60 Q135,52 132,48" />
+          <!-- Ring finger -->
+          <path d="M110,95 Q122,76 130,65 Q134,58 130,55" />
+          <!-- Pinky — hooked, connects to red string -->
+          <path d="M112,100 Q122,85 128,75 Q133,68 138,66 Q143,64 148,68 Q152,73 150,78" />
+          <!-- Palm lines -->
+          <path d="M82,112 Q95,105 108,100" style="opacity: 0.3" />
+        </g>
+
+        <!-- Right hand (Emma) — reaching from right toward center -->
+        <g class="hand-path" id="handRight">
+          <path d="M520,130 Q500,125 480,115 Q465,108 455,95" />
+          <path d="M475,115 Q485,100 480,88 Q475,80 468,82" />
+          <path d="M455,95 Q445,78 435,68 Q430,63 432,58" />
+          <path d="M452,93 Q440,72 430,60 Q425,52 428,48" />
+          <path d="M450,95 Q438,76 430,65 Q426,58 430,55" />
+          <!-- Pinky — hooked, connects to red string -->
+          <path d="M448,100 Q438,85 432,75 Q427,68 422,66 Q417,64 412,68 Q408,73 410,78" />
+          <path d="M478,112 Q465,105 452,100" style="opacity: 0.3" />
+        </g>
+
+        <!-- Red string of fate (赤い糸) — flowing curve between pinkies -->
+        <path class="red-string-path" id="redString"
+          d="M150,78 Q160,90 180,95 Q210,100 240,88 Q270,72 280,80 Q290,88 320,88 Q350,88 380,95 Q400,100 410,78" />
+
+        <!-- Small knot/bow in the center of the string -->
+        <circle cx="280" cy="80" r="3" fill="var(--color-red-string)" opacity="0.8" id="redStringKnot" />
+      </svg>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- GROOM -->
+  <section id="intro-groom" class="intro-section">
+    <span class="floating-kanji" style="top: 5%; right: 5%;">LO</span>
+    <div class="intro-container">
+      <div class="intro-portrait-wrap">
+        <div class="intro-portrait" id="groom-portrait">
+          <div class="intro-portrait-bg"><img src="/img/HSU_3764.jpg" alt="Shawn"></div>
+          <!-- Engineer icons pop out from behind portrait -->
+          <div class="portrait-icons" id="groomIcons">
+            <div class="portrait-icon icon-code">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 12L4 24L16 36" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M32 12L44 24L32 36" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M28 6L20 42" stroke="var(--color-accent-soft)" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="portrait-icon icon-terminal">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="6" width="40" height="36" rx="4" stroke="var(--color-accent)" stroke-width="2.5" />
+                <path d="M12 18L20 24L12 30" stroke="var(--color-accent-light)" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M24 30H36" stroke="var(--color-accent-soft)" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="portrait-icon icon-gear">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="8" stroke="var(--color-accent)" stroke-width="2.5" />
+                <path
+                  d="M24 4V10M24 38V44M4 24H10M38 24H44M10 10L14.5 14.5M33.5 33.5L38 38M38 10L33.5 14.5M14.5 33.5L10 38"
+                  stroke="var(--color-accent-soft)" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="portrait-icon icon-bracket">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 8C12 8 10 10 10 14V20C10 22 8 24 6 24C8 24 10 26 10 28V34C10 38 12 40 16 40"
+                  stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M32 8C36 8 38 10 38 14V20C38 22 40 24 42 24C40 24 38 26 38 28V34C38 38 36 40 32 40"
+                  stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="intro-portrait-accent"></div>
+      </div>
+      <div class="intro-content">
+        <p class="intro-label">The Groom</p>
+        <h2 class="intro-name">Shawn</h2>
+        <p class="intro-name-jp">新郎</p>
+        <div class="accent-line" style="margin: 0 0 1.5rem 0;"></div>
+        <p class="intro-bio" id="groom-bio">A dreamer, builder, and eternal optimist. Shawn brings warmth and laughter
+          to every room he enters. When he's not crafting beautiful code, you'll find him exploring new places with Emma
+          by his side.</p>
+        <div class="intro-timeline" id="groom-timeline">
+          <div class="timeline-item"><span class="timeline-year">1997</span>
+            <p class="timeline-event">Born on August 1st — A Leo & An Ox</p>
+          </div>
+          <div class="timeline-item"><span class="timeline-year">2020</span>
+            <p class="timeline-event">Met Emma for the first time</p>
+          </div>
+          <div class="timeline-item"><span class="timeline-year">2024</span>
+            <p class="timeline-event">Proposed on a starlit evening</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="section-divider"></div>
+
+  <!-- BRIDE -->
+  <section id="intro-bride" class="intro-section">
+    <span class="floating-kanji" style="bottom: 5%; left: 5%;">VE</span>
+    <div class="intro-container reversed">
+      <div class="intro-portrait-wrap">
+        <div class="intro-portrait" id="bride-portrait">
+          <div class="intro-portrait-bg"><img src="/img/HSU_3732.jpg" alt="Emma"></div>
+          <!-- Interior designer icons pop out from behind portrait -->
+          <div class="portrait-icons" id="brideIcons">
+            <div class="portrait-icon icon-ruler">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="16" width="36" height="16" rx="2" stroke="var(--color-accent)" stroke-width="2.5" />
+                <path d="M14 16V22M22 16V24M30 16V22M38 16V20M10 16V20M26 16V20M34 16V20M18 16V20"
+                  stroke="var(--color-accent-soft)" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="portrait-icon icon-palette">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C26.2 44 28 42.2 28 40C28 39 27.6 38.1 27 37.4C26.4 36.7 26 35.8 26 34.8C26 32.6 27.8 30.8 30 30.8H34C39.5 30.8 44 26.3 44 20.8C44 11.5 35.05 4 24 4Z"
+                  stroke="var(--color-accent)" stroke-width="2.5" />
+                <circle cx="14" cy="20" r="3" fill="var(--color-accent-light)" />
+                <circle cx="22" cy="14" r="3" fill="var(--color-accent-soft)" />
+                <circle cx="32" cy="18" r="3" fill="var(--color-accent)" />
+              </svg>
+            </div>
+            <div class="portrait-icon icon-lamp">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 36H30M20 40H28M24 36V44" stroke="var(--color-accent-soft)" stroke-width="2"
+                  stroke-linecap="round" />
+                <path
+                  d="M14 24C14 18.5 18.5 14 24 14C29.5 14 34 18.5 34 24C34 28 31.5 31.5 28 33V36H20V33C16.5 31.5 14 28 14 24Z"
+                  stroke="var(--color-accent)" stroke-width="2.5" />
+                <path d="M24 4V8M40 24H44M4 24H8M36.5 11.5L33.5 14.5M11.5 11.5L14.5 14.5"
+                  stroke="var(--color-accent-light)" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="portrait-icon icon-plant">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 44V28" stroke="var(--color-accent-soft)" stroke-width="2.5" stroke-linecap="round" />
+                <path
+                  d="M24 28C24 28 16 26 12 20C8 14 12 6 12 6C12 6 20 8 24 14C28 8 36 6 36 6C36 6 40 14 36 20C32 26 24 28 24 28Z"
+                  stroke="var(--color-accent)" stroke-width="2.5" stroke-linejoin="round" />
+                <path d="M24 28C24 22 18 16 12 6" stroke="var(--color-accent-soft)" stroke-width="1.5"
+                  stroke-linecap="round" opacity="0.5" />
+                <path d="M24 28C24 22 30 16 36 6" stroke="var(--color-accent-soft)" stroke-width="1.5"
+                  stroke-linecap="round" opacity="0.5" />
+                <rect x="18" y="40" width="12" height="6" rx="2" stroke="var(--color-accent)" stroke-width="2" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="intro-portrait-accent" style="left: -20px; right: auto;"></div>
+      </div>
+      <div class="intro-content">
+        <p class="intro-label">The Bride</p>
+        <h2 class="intro-name">Emma</h2>
+        <p class="intro-name-jp">新婦</p>
+        <div class="accent-line" style="margin: 0 0 1.5rem 0;"></div>
+        <p class="intro-bio" id="bride-bio">Graceful, creative, and endlessly kind. Emma's gentle spirit and radiant
+          smile light up Shawn's world. Together they share a love of adventure, good food, and building a beautiful
+          life.</p>
+        <div class="intro-timeline" id="bride-timeline">
+          <div class="timeline-item"><span class="timeline-year">2020</span>
+            <p class="timeline-event">A chance encounter changed everything</p>
+          </div>
+          <div class="timeline-item"><span class="timeline-year">2022</span>
+            <p class="timeline-event">First trip to Japan together</p>
+          </div>
+          <div class="timeline-item"><span class="timeline-year">2025</span>
+            <p class="timeline-event">Said "Yes!" — the happiest day</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="section-divider"></div>
+
+  <!-- HORIZONTAL GALLERY -->
+  <section id="gallery-wedding">
+    <div class="gallery-title-section">
+      <p class="gallery-label">Gallery</p>
+      <h2 class="gallery-heading">Our Wedding Day</h2>
+      <p class="gallery-heading-jp">結婚式の日</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="horizontal-gallery-wrapper">
+      <div class="horizontal-gallery" id="hGallery">
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-1.jpg" alt="Ceremony" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">The ceremony begins</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-2.jpg" alt="Vows" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Exchanging vows</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-3.jpg" alt="First Kiss" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">The first kiss</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-4.jpg" alt="Rings" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Ring exchange</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-5.jpg" alt="Family" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">With our beloved families</span>
+          </div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-6.jpg" alt="Reception" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Reception entrance</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-7.jpg" alt="First Dance" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Our first dance</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-8.jpg" alt="Toast" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Raising a toast</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-9.jpg" alt="Cake" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Cutting the cake</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-10.jpg" alt="Friends" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Surrounded by friends</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-11.jpg" alt="Bouquet" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Bouquet toss</span></div>
+        </div>
+        <div class="h-gallery-item">
+          <div class="h-gallery-item-inner">
+            <div class="h-gallery-item-bg"><img src="/img/HO-12.jpg" alt="Exit" loading="lazy" decoding="async"
+                style="width:100%;height:100%;object-fit:cover;"></div>
+          </div>
+          <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Our grand exit</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HANDWRITING LOVE LETTER -->
+  <section class="handwriting-section" id="handwriting-section">
+    <p class="handwriting-text" id="handwritingText"></p>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- MASONRY GALLERY -->
+  <section id="gallery-prewedding">
+    <div class="gallery-title-section" style="height:auto;margin-bottom:2rem;">
+      <p class="gallery-label">Memories</p>
+      <h2 class="gallery-heading">Do not go gentle into that good night</h2>
+      <p class="gallery-heading-jp">二人の思い出</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="masonry-grid" id="masonryGrid">
+      <div class="masonry-item" style="--aspect:3/4;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-13.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:4/5;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-14.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:1/1;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-15.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:3/4;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-16.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:4/3;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-17.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:3/4;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-18.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:5/4;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-19.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:3/4;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-20.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:1/1;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-21.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:4/5;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-22.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:3/4;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-13.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="masonry-item" style="--aspect:4/3;">
+        <div class="masonry-item-inner">
+          <div class="masonry-item-bg"><img src="/img/HO-14.jpg" alt="Memory" loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="section-divider"></div>
+
+  <!-- FOOTER -->
+  <section id="footer">
+    <div class="footer-bg-pattern"></div>
+    <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+    <div class="footer-content">
+      <p class="footer-label">Save The Date</p>
+      <h2 class="footer-date">2026. 05. 17</h2>
+      <p class="footer-date-jp">二〇二六年 五月 十七日</p>
+      <div class="accent-line"></div>
+      <p class="footer-location">皇家薇庭</p>
+      <p class="footer-address">莊敬路二段369號<br>桃園市, 桃園區</p>
+      <p class="footer-message">"O ever youthful, O ever weeping"</p>
+      <p class="footer-message">"Love is the one thing that transcends time and space"</p>
+      <div class="footer-hearts">❀</div>
+      <p class="footer-bottom">Shawn & Emma &nbsp;·&nbsp; May 17, 2026</p>
+    </div>
+  </section>
+
+
+  <!-- 相簿 -->
+  <div id="photo-portal-trigger" class="portal-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+      <circle cx="12" cy="13" r="4"></circle>
+    </svg>
+    <span class="btn-label">Share Joy</span>
+  </div>
+
+  <div id="photo-portal-overlay" class="portal-overlay">
+    <button class="portal-close" id="portalClose">✕</button>
+    <div class="portal-content">
+      <div class="portal-header">
+        <p class="portal-subtitle">Capture the Moments</p>
+        <h2 class="portal-title">我們的時光相簿</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="portal-body">
+        <p>感謝你參與我們的婚禮！<br>請將今天捕捉到的精彩瞬間分享給我們</p>
+
+        <a href="你的相簿連結" target="_blank" class="upload-btn">
+          <span>開啟相簿並上傳</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+
+        <p class="portal-hint">建議使用 LINE 或預設瀏覽器開啟</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <div class="lightbox-content" id="lightboxContent">
+      <img class="lightbox-image" id="lightboxImage" src="" alt="Photo Preview">
+      <!-- Japanese-style rope knot decorations (Mizuhiki) -->
+      <svg class="lightbox-corner lightbox-corner-tl" viewBox="0 0 100 100" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M10,50 Q10,10 50,10 Q50,10 50,30 Q50,45 35,45 Q20,45 20,30 Q20,20 30,20" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9" />
+        <path d="M50,10 Q90,10 90,50 Q90,50 70,50 Q55,50 55,35 Q55,25 65,25 Q75,25 75,35" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7" />
+        <circle cx="50" cy="30" r="4" fill="var(--color-accent)" opacity="0.8" />
+      </svg>
+
+      <svg class="lightbox-corner lightbox-corner-tr" viewBox="0 0 100 100" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M90,50 Q90,10 50,10 Q50,10 50,30 Q50,45 65,45 Q80,45 80,30 Q80,20 70,20" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9" />
+        <path d="M50,10 Q10,10 10,50 Q10,50 30,50 Q45,50 45,35 Q45,25 35,25 Q25,25 25,35" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7" />
+        <circle cx="50" cy="30" r="4" fill="var(--color-accent)" opacity="0.8" />
+      </svg>
+
+      <svg class="lightbox-corner lightbox-corner-bl" viewBox="0 0 100 100" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M10,50 Q10,90 50,90 Q50,90 50,70 Q50,55 35,55 Q20,55 20,70 Q20,80 30,80" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9" />
+        <path d="M50,90 Q90,90 90,50 Q90,50 70,50 Q55,50 55,65 Q55,75 65,75 Q75,75 75,65" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7" />
+        <circle cx="50" cy="70" r="4" fill="var(--color-accent)" opacity="0.8" />
+      </svg>
+
+      <svg class="lightbox-corner lightbox-corner-br" viewBox="0 0 100 100" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M90,50 Q90,90 50,90 Q50,90 50,70 Q50,55 65,55 Q80,55 80,70 Q80,80 70,80" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9" />
+        <path d="M50,90 Q10,90 10,50 Q10,50 30,50 Q45,50 45,65 Q45,75 35,75 Q25,75 25,65" stroke="var(--color-accent)"
+          stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7" />
+        <circle cx="50" cy="70" r="4" fill="var(--color-accent)" opacity="0.8" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>

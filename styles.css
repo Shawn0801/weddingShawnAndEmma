@@ -1,0 +1,1759 @@
+:root {
+  --color-bg: #1a1a1a;
+  --color-bg-warm: #222220;
+  --color-bg-deep: #141413;
+  --color-surface: #2a2a28;
+  --color-accent: #c8553a;
+  --color-accent-light: #e07455;
+  --color-accent-soft: #d4785f;
+  --color-accent-dark: #943d2a;
+  --color-accent-glow: rgba(200, 85, 58, 0.15);
+  --color-white: #fafafa;
+  --color-white-warm: #f0ece6;
+  --color-white-muted: rgba(250, 250, 250, 0.55);
+  --color-white-semi: rgba(250, 250, 250, 0.4);
+  --color-text: #c8c4bc;
+  --color-divider: rgba(200, 85, 58, 0.18);
+  --color-red-string: #c8553a;
+  --font-display: 'Cormorant Garamond', 'Shippori Mincho', serif;
+  --font-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
+  --font-body: 'Zen Kaku Gothic New', 'Cormorant Garamond', sans-serif;
+  --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg);
+  /* 新增：雙層背景。第一層是半透明黑色遮罩，第二層是你的紋路圖 */
+  background-image:
+    linear-gradient(rgba(43, 43, 43, 0.88), rgba(108, 108, 108, 0.88)),
+    url('/img/digital-art-with-organic-floral-shapes.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  /* 混合模式讓紋路隱約浮現 */
+  background-blend-mode: multiply;
+
+  color: var(--color-text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* 新增：讓背景紋路在細節處更精緻 (選配) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.01;
+  background-image: url('/img/digital-art-with-organic-floral-shapes.png');
+  background-size: 600px;
+  /* 縮小尺寸變成重複細紋 */
+  background-repeat: repeat;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 3D Tulip — fixed canvas, z-index below section content so it never blocks text/photos */
+#tulip-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ═══ LOADER ═══ */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s var(--ease-smooth), visibility 0.8s;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 滑鼠 */
+.trail-heart {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform, opacity;
+  font-family: serif;
+  /* 使用襯線體讓花瓣符號更優美 */
+  line-height: 1;
+}
+
+.loader-icon {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.loader-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══ 水泡動畫 - 從潛水員上升 ═══ */
+.bubble {
+  fill: none;
+  stroke: var(--color-accent-light);
+  stroke-width: 1.2;
+  opacity: 0;
+  animation: bubbleRise 4s infinite ease-out;
+}
+
+.b1 {
+  animation-delay: 0.2s;
+}
+
+.b2 {
+  animation-delay: 0.6s;
+}
+
+.b3 {
+  animation-delay: 0.3s;
+}
+
+.b4 {
+  animation-delay: 0.8s;
+}
+
+.b5 {
+  animation-delay: 1.2s;
+}
+
+.b6 {
+  animation-delay: 1.5s;
+}
+
+.b7 {
+  animation-delay: 1.8s;
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.7;
+  }
+
+  70% {
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateY(-130px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ═══ 海龜動畫組 - 優雅游動 ═══ */
+.turtle-group {
+  animation: turtleSwim 5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes turtleSwim {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-10px) translateX(6px) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(10px) translateX(-6px) rotate(-2deg);
+  }
+}
+
+/* 海龜鰭狀肢輕微擺動 */
+.turtle-flipper {
+  animation: flipperWave 2.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.turtle-flipper:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.turtle-flipper:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+.turtle-flipper:nth-child(6) {
+  animation-delay: 0.9s;
+}
+
+.turtle-flipper:nth-child(7) {
+  animation-delay: 1.2s;
+}
+
+@keyframes flipperWave {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+/* ═══ 潛水員浮動動畫 ═══ */
+.diver-shawn {
+  animation: diverFloat 4s ease-in-out infinite;
+}
+
+.diver-emma {
+  animation: diverFloat 4s ease-in-out infinite 0.7s;
+}
+
+@keyframes diverFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-8px) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(8px) rotate(1.5deg);
+  }
+}
+
+/* 潛水員腿部擺動（踢蛙鞋） */
+.diver-leg {
+  animation: legKick 1.8s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.diver-shawn .diver-leg:nth-child(5) {
+  animation-delay: 0s;
+}
+
+.diver-shawn .diver-leg:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+.diver-emma .diver-leg:nth-child(5) {
+  animation-delay: 0.15s;
+}
+
+.diver-emma .diver-leg:nth-child(6) {
+  animation-delay: 0.45s;
+}
+
+@keyframes legKick {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(12deg);
+  }
+}
+
+/* 潛水員手臂輕微擺動 */
+.diver-arm {
+  animation: armWave 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.diver-shawn .diver-arm:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.diver-shawn .diver-arm:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.diver-emma .diver-arm:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.diver-emma .diver-arm:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+@keyframes armWave {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+/* 潛水員互看動畫 */
+.diver-interact {
+  animation: diverLook 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.diver-shawn.diver-interact {
+  animation-delay: 0s;
+}
+
+.diver-emma.diver-interact {
+  animation-delay: 0.5s;
+  /* 稍微錯開更自然 */
+}
+
+@keyframes diverLook {
+
+  0%,
+  100% {
+    transform: scaleX(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scaleX(1.05) rotate(2deg);
+  }
+
+  /* 向中心微傾 */
+}
+
+/* 修正海龜鰭肢動畫點，防止脫離 */
+.turtle-flipper {
+  transform-origin: 120px 80px;
+  /* 以龜殼中心旋轉 */
+}
+
+/* ═══ 繪製線條動畫 - 所有圖形依序描繪 ═══ */
+.silhouette-path {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: drawSilhouette 2.5s var(--ease-smooth) forwards;
+}
+
+/* 海龜各部分繪製順序 */
+.turtle-shell {
+  stroke-width: 2;
+  animation-delay: 0s;
+}
+
+.turtle-pattern {
+  stroke-width: 1;
+  animation-delay: 0.3s;
+}
+
+.turtle-head {
+  animation-delay: 0.5s;
+}
+
+.turtle-eye {
+  stroke-width: 1;
+  animation-delay: 0.6s;
+  fill: var(--color-accent);
+}
+
+/* 潛水員各部分繪製順序 */
+.diver-body {
+  animation-delay: 0.8s;
+}
+
+.diver-head {
+  animation-delay: 0.9s;
+}
+
+.diver-tank {
+  animation-delay: 1.0s;
+  stroke-width: 1.2;
+}
+
+.diver-arm {
+  stroke-linecap: round;
+}
+
+.diver-leg {
+  stroke-linecap: round;
+}
+
+/* Loader 文字樣式 */
+.loader-text {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0;
+  animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderPulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.silhouette-path {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawSilhouette 2.5s var(--ease-smooth) forwards;
+}
+
+@keyframes drawSilhouette {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ═══ NAV HEARTS ═══ */
+.nav-dots {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.nav-dot {
+  width: 14px;
+  height: 13px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-smooth);
+  position: relative;
+  border: none;
+  border-radius: 0;
+}
+
+.nav-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  opacity: 0.4;
+  clip-path: path('M7 2.5C7 2.5 5.5 0 3.5 0C1.5 0 0 1.5 0 3.5C0 6 3 8.5 7 12.5C11 8.5 14 6 14 3.5C14 1.5 12.5 0 10.5 0C8.5 0 7 2.5 7 2.5Z');
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.nav-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.nav-dot:hover::after {
+  opacity: 1;
+}
+
+.nav-dot:hover::before {
+  opacity: 0.7;
+  transform: scale(1.15);
+}
+
+.nav-dot.active::before {
+  opacity: 1;
+  transform: scale(1.3);
+  filter: drop-shadow(0 0 4px rgba(200, 85, 58, 0.5));
+}
+
+@media (max-width: 768px) {
+  .nav-dots {
+    right: 1rem;
+    gap: 1.1rem;
+  }
+
+  .nav-dot {
+    width: 11px;
+    height: 10px;
+  }
+}
+
+/* ═══ SECTIONS ═══ */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-full {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accent-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  margin: 1.5rem auto;
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-divider), transparent);
+}
+
+/* ═══ HERO ═══ */
+#hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  position: relative;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(200, 85, 58, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 85%, rgba(200, 85, 58, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(90, 114, 71, 0.03) 0%, transparent 40%);
+}
+
+.hero-portrait {
+  position: absolute;
+  width: 380px;
+  height: 520px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  border-radius: 200px 200px 20px 20px;
+  opacity: 0;
+}
+
+.hero-portrait-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-bg-warm) 50%, var(--color-accent-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-portrait-placeholder {
+  font-family: var(--font-display);
+  font-size: 6rem;
+  color: var(--color-accent);
+  opacity: 0.3;
+  font-weight: 300;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.hero-date {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+
+.hero-names {
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--color-white-semi);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name {
+  display: block;
+  font-size: clamp(3rem, 8vw, 7rem);
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.hero-ampersand {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--color-accent);
+  font-style: italic;
+  font-weight: 300;
+  margin: 0.3rem 0;
+  opacity: 0;
+}
+
+.hero-jp {
+  font-family: var(--font-jp);
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 200;
+  color: var(--color-white-muted);
+  letter-spacing: 0.5em;
+  margin-top: 1.5rem;
+  opacity: 0;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+}
+
+.hero-scroll-hint span {
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(0.5);
+    transform-origin: top;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-portrait {
+    width: 260px;
+    height: 360px;
+    border-radius: 140px 140px 16px 16px;
+  }
+}
+
+/* ═══ HANDS + RED STRING (SVG positioned below hero names) ═══ */
+.hero-hands {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(320px, 50vw, 560px);
+  height: auto;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-hands svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Red string animation */
+.red-string-path {
+  stroke: var(--color-red-string);
+  stroke-width: 1.8;
+  fill: none;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(200, 85, 58, 0.4));
+}
+
+.red-string-path.animate {
+  animation: drawString 2s var(--ease-smooth) forwards;
+}
+
+@keyframes drawString {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hand-path {
+  fill: none;
+  stroke: var(--color-white-muted);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.hand-path.animate {
+  animation: fadeInHand 1.2s var(--ease-smooth) forwards;
+}
+
+@keyframes fadeInHand {
+  to {
+    opacity: 0.7;
+  }
+}
+
+/* ═══ INTRO SECTIONS ═══ */
+.intro-section {
+  min-height: 100vh;
+  padding: 8rem 2rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.intro-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.intro-container.reversed {
+  direction: rtl;
+}
+
+.intro-container.reversed>* {
+  direction: ltr;
+}
+
+.intro-portrait-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.intro-portrait {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  position: relative;
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.intro-portrait-bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(200, 85, 58, 0.2), rgba(200, 85, 58, 0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.intro-portrait-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-portrait-bg .placeholder-initial {
+  font-family: var(--font-display);
+  font-size: 8rem;
+  color: var(--color-accent);
+  opacity: 0.25;
+  font-weight: 300;
+}
+
+.intro-portrait::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  opacity: 0.3;
+}
+
+.intro-portrait-accent {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 85, 58, 0.08), transparent);
+  top: -20px;
+  right: -20px;
+  opacity: 0;
+}
+
+/* Profession icons — start hidden at portrait center, burst outward */
+.portrait-icons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.portrait-icon {
+  position: absolute;
+  opacity: 0;
+  /* Each icon will be animated FROM center TO its final position via GSAP */
+}
+
+.portrait-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Final resting positions (GSAP animates TO these from center) */
+/* Shawn — Engineer icons burst outward from circle */
+.icon-code {
+  width: 44px;
+  height: 44px;
+  top: -30px;
+  right: -20px;
+}
+
+.icon-terminal {
+  width: 38px;
+  height: 38px;
+  bottom: -5px;
+  right: -35px;
+}
+
+.icon-gear {
+  width: 36px;
+  height: 36px;
+  top: 20px;
+  left: -40px;
+}
+
+.icon-bracket {
+  width: 40px;
+  height: 40px;
+  bottom: -25px;
+  left: 10px;
+}
+
+/* Emma — Interior Design icons burst outward */
+.icon-ruler {
+  width: 42px;
+  height: 42px;
+  top: -28px;
+  left: -20px;
+}
+
+.icon-palette {
+  width: 40px;
+  height: 40px;
+  bottom: -10px;
+  left: -38px;
+}
+
+.icon-lamp {
+  width: 38px;
+  height: 38px;
+  top: 15px;
+  right: -38px;
+}
+
+.icon-plant {
+  width: 36px;
+  height: 36px;
+  bottom: -22px;
+  right: 5px;
+}
+
+.intro-content {
+  padding: 2rem 0;
+}
+
+.intro-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  opacity: 0;
+}
+
+.intro-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+}
+
+.intro-name-jp {
+  font-family: var(--font-jp);
+  font-size: 1rem;
+  font-weight: 200;
+  color: var(--color-white-muted);
+  letter-spacing: 0.3em;
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+
+.intro-bio {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 2;
+  color: var(--color-text);
+  max-width: 440px;
+  opacity: 0;
+}
+
+.intro-timeline {
+  margin-top: 2.5rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--color-divider);
+  opacity: 0;
+}
+
+.timeline-item {
+  padding: 0.8rem 0;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.85rem;
+  top: 1.15rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  background: var(--color-bg);
+}
+
+.timeline-year {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+}
+
+.timeline-event {
+  font-size: 0.85rem;
+  color: var(--color-white-muted);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+
+  .intro-container,
+  .intro-container.reversed {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+    direction: ltr;
+  }
+
+  .intro-portrait {
+    width: 240px;
+    height: 240px;
+  }
+
+  .intro-bio {
+    max-width: 100%;
+  }
+
+  .intro-timeline {
+    text-align: left;
+  }
+}
+
+/* ═══ HORIZONTAL GALLERY ═══ */
+#gallery-wedding {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-title-section {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.gallery-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+  opacity: 0;
+}
+
+.gallery-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--color-white);
+  opacity: 0;
+}
+
+.gallery-heading-jp {
+  font-family: var(--font-jp);
+  font-size: 1rem;
+  font-weight: 200;
+  color: var(--color-white-muted);
+  letter-spacing: 0.3em;
+  margin-top: 0.5rem;
+  opacity: 0;
+}
+
+.horizontal-gallery-wrapper {
+  overflow: hidden;
+}
+
+.horizontal-gallery {
+  display: flex;
+  gap: 2rem;
+  padding: 4rem 4rem 4rem 10vw;
+  width: max-content;
+}
+
+.h-gallery-item {
+  flex-shrink: 0;
+  width: 420px;
+  height: 560px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.h-gallery-item-inner {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%);
+  transition: filter 0.6s var(--ease-smooth);
+}
+
+.h-gallery-item:hover .h-gallery-item-inner {
+  filter: grayscale(0%);
+}
+
+.h-gallery-item-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-accent-soft);
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.h-gallery-item-bg img {
+  will-change: transform;
+  content-visibility: auto;
+}
+
+.h-gallery-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(26, 26, 26, 0.85), transparent);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.h-gallery-item:hover .h-gallery-item-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.h-gallery-item-caption {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--color-accent-light);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .h-gallery-item {
+    width: 280px;
+    height: 380px;
+  }
+
+  .horizontal-gallery {
+    gap: 1rem;
+    padding: 2rem 2rem 2rem 5vw;
+  }
+}
+
+/* ═══ MASONRY GALLERY ═══ */
+#gallery-prewedding {
+  padding: 8rem 2rem;
+}
+
+.masonry-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  columns: 3;
+  column-gap: 1.5rem;
+  padding-top: 3rem;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.masonry-item-bg {
+  width: 100%;
+  aspect-ratio: var(--aspect, 3/4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--color-accent);
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.masonry-item-bg img {
+  will-change: transform;
+  content-visibility: auto;
+}
+
+.masonry-item-inner {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.masonry-item-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(200, 85, 58, 0.04);
+  transition: background 0.4s;
+}
+
+.masonry-item:hover .masonry-item-inner::after {
+  background: rgba(200, 85, 58, 0.12);
+}
+
+.masonry-item:hover {
+  transform: translateY(0) scale(1.02) !important;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+  .masonry-grid {
+    columns: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .masonry-grid {
+    columns: 1;
+    max-width: 400px;
+  }
+}
+
+/* ═══ LIGHTBOX ═══ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 20, 19, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s var(--ease-smooth);
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+}
+
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image {
+  max-width: 85vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.lightbox.active .lightbox-image {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Japanese-style rope knot decorations (Mizuhiki) */
+.lightbox-corner {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.lightbox.active .lightbox-corner {
+  opacity: 1;
+}
+
+/* Top-left knot */
+.lightbox-corner-tl {
+  top: -30px;
+  left: -30px;
+  width: 100px;
+  height: 100px;
+  transform: translate(-15px, -15px) rotate(-10deg);
+  transition-delay: 0.2s;
+}
+
+.lightbox.active .lightbox-corner-tl {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+/* Top-right knot */
+.lightbox-corner-tr {
+  top: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  transform: translate(15px, -15px) rotate(10deg);
+  transition-delay: 0.3s;
+}
+
+.lightbox.active .lightbox-corner-tr {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+/* Bottom-left knot */
+.lightbox-corner-bl {
+  bottom: -30px;
+  left: -30px;
+  width: 100px;
+  height: 100px;
+  transform: translate(-15px, 15px) rotate(10deg);
+  transition-delay: 0.4s;
+}
+
+.lightbox.active .lightbox-corner-bl {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+/* Bottom-right knot */
+.lightbox-corner-br {
+  bottom: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  transform: translate(15px, 15px) rotate(-10deg);
+  transition-delay: 0.5s;
+}
+
+.lightbox.active .lightbox-corner-br {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 1001;
+}
+
+.lightbox-close:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+  transform: rotate(90deg);
+}
+
+/* ═══ FOOTER ═══ */
+#footer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(200, 85, 58, 0.06) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(90, 114, 71, 0.04) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.confetti-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+}
+
+.footer-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+
+.footer-date {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--color-white);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+}
+
+.footer-date-jp {
+  font-family: var(--font-jp);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 200;
+  color: var(--color-white-muted);
+  letter-spacing: 0.4em;
+  margin-bottom: 3rem;
+  opacity: 0;
+}
+
+.footer-location {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--color-text);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+}
+
+.footer-address {
+  font-size: 0.85rem;
+  color: var(--color-white-muted);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  opacity: 0;
+}
+
+.footer-message {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-accent-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0;
+}
+
+.footer-hearts {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-accent);
+  opacity: 0;
+}
+
+.footer-bottom {
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--color-white-muted);
+  opacity: 0;
+}
+
+/* ═══ DECORATIVE ═══ */
+.floating-kanji {
+  position: absolute;
+  font-family: var(--font-jp);
+  font-size: 12rem;
+  font-weight: 200;
+  color: rgba(200, 85, 58, 0.25);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1.5;
+}
+
+/* ═══ HANDWRITING SECTION ═══ */
+.handwriting-section {
+  padding: 6rem 2rem;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible !important;
+}
+
+.handwriting-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(200, 85, 58, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.handwriting-text {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.6;
+  color: var(--color-accent);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* 修正後的書寫動畫樣式 */
+.handwriting-text span {
+  display: inline-block;
+  /* 改為 inline-block 動畫效果更好 */
+  opacity: 0;
+  transform: translateY(3px);
+  /* 初始位移 */
+  transition: none;
+  /* 移除原本的 transition，交給 JS 控制或瞬間出現 */
+}
+
+.handwriting-text span.hw-visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+  transition: opacity 0.1s ease, transform 0.2s ease;
+  /* 只有在顯示時才有的微小過度 */
+}
+
+/* Pen cursor blinking at the writing front */
+.hw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--color-accent);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: hwBlink 0.8s step-end infinite;
+}
+
+@keyframes hwBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Handwriting font classes */
+.caveat {
+  font-family: "Caveat", cursive;
+}
+
+.shadows-into-light {
+  font-family: "Shadows Into Light", cursive;
+}
+
+.indie-flower {
+  font-family: "Indie Flower", cursive;
+}
+
+.nothing-you-could-do {
+  font-family: "Nothing You Could Do", cursive;
+}
+
+.oooh-baby {
+  font-family: "Oooh Baby", cursive;
+}
+
+.reenie-beanie {
+  font-family: "Reenie Beanie", cursive;
+}
+
+.cedarville-cursive {
+  font-family: "Cedarville Cursive", cursive;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+}
+
+
+/* 相簿 */
+/* 浮動按鈕樣式 */
+.portal-btn {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2rem;
+  z-index: 500;
+  background: var(--color-accent);
+  color: var(--color-white);
+  padding: 0.8rem 1.2rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(200, 85, 58, 0.3);
+  transition: all 0.4s var(--ease-out);
+  animation: btnPulse 2s infinite;
+}
+
+.portal-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.portal-btn .btn-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@keyframes btnPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px rgba(200, 85, 58, 0.3);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(200, 85, 58, 0.5);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 25px rgba(200, 85, 58, 0.3);
+  }
+}
+
+/* 覆蓋面板樣式 */
+.portal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s var(--ease-smooth);
+}
+
+.portal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.portal-content {
+  text-align: center;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  transform: translateY(30px);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.portal-overlay.active .portal-content {
+  transform: translateY(0);
+}
+
+.portal-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-white);
+  margin-top: 0.5rem;
+}
+
+.portal-subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 1.2rem 2rem;
+  margin: 2.5rem 0 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-jp);
+  transition: all 0.3s;
+}
+
+.upload-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.portal-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--color-white-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.portal-hint {
+  font-size: 0.75rem;
+  color: var(--color-white-muted);
+  margin-top: 1rem;
+}
