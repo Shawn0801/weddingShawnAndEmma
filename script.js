@@ -559,16 +559,9 @@ document.documentElement.style.scrollBehavior = 'auto';
 
 // Preload all HO images
 function preloadImages() {
-  const imageUrls = [];
-
-  // Collect all HO image URLs (HO-1.jpg to HO-22.jpg)
-  for (let i = 1; i <= 22; i++) {
-    imageUrls.push(`/img/HO-${i}.jpg`);
-  }
-
-  // Also preload portrait images
-  imageUrls.push('/img/HSU_3764.jpg'); // Groom
-  imageUrls.push('/img/HSU_3732.jpg'); // Bride
+  const imageUrls = Array.from(document.querySelectorAll('img[src]'))
+    .map(img => img.src)
+    .filter(src => src.startsWith('http'));
 
   let loadedCount = 0;
   const totalImages = imageUrls.length;
@@ -746,9 +739,42 @@ function initHGallery() {
     scrollTrigger: { trigger: wrapper, start: 'top top', end: () => `+=${getScroll()}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1, fastScrollEnd: true }
   });
 }
+function initMobileGallery() {
+  const gallery = document.getElementById('hGallery');
+  const wrapper = document.querySelector('.horizontal-gallery-wrapper');
+  if (!gallery || !wrapper) return;
+
+  ['gallery-label', 'gallery-heading', 'gallery-heading-jp'].forEach((c, i) => {
+    gsap.to(`#gallery-wedding .${c}`, {
+      opacity: 1, y: 0, duration: 0.8, delay: i * 0.1,
+      scrollTrigger: { trigger: '#gallery-wedding .gallery-title-section', start: 'top 70%', toggleActions: 'play none none reverse' }
+    });
+  });
+
+  const items = gallery.querySelectorAll('.h-gallery-item');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  const counter = document.getElementById('galleryCounter');
+  const total = items.length;
+  let current = 0;
+
+  function goTo(index) {
+    current = Math.max(0, Math.min(total - 1, index));
+    gallery.style.transform = `translateX(calc(-${current} * 100vw))`;
+    if (counter) counter.textContent = `${current + 1} / ${total}`;
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  goTo(0);
+}
+
 ScrollTrigger.matchMedia({
   '(min-width: 640px)': () => initHGallery(),
-  '(max-width: 639px)': () => initHGallery()
+  '(max-width: 639px)': () => initMobileGallery()
 });
 
 /* MASONRY */

@@ -13,8 +13,10 @@
     rel="stylesheet">
 
   <!-- Preload critical images for faster initial render -->
-  <link rel="preload" as="image" href="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293801/HSU_3764_rjmn0m.jpg">
-  <link rel="preload" as="image" href="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293791/HSU_3732_l44vrs.jpg">
+  <link rel="preload" as="image"
+    href="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293801/HSU_3764_rjmn0m.jpg">
+  <link rel="preload" as="image"
+    href="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293791/HSU_3732_l44vrs.jpg">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -59,7 +61,8 @@
 
     <div class="hero-portrait">
       <div class="hero-portrait-inner">
-        <img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293799/HSU_3338_m3lydi.jpg" alt="Shawn & Emma" style="width:100%;height:100%;object-fit:cover;">
+        <img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293799/HSU_3338_m3lydi.jpg" alt="Shawn & Emma"
+          style="width:100%;height:100%;object-fit:cover;">
       </div>
     </div>
 
@@ -132,7 +135,8 @@
     <div class="intro-container">
       <div class="intro-portrait-wrap">
         <div class="intro-portrait" id="groom-portrait">
-          <div class="intro-portrait-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293801/HSU_3764_rjmn0m.jpg" alt="Shawn"></div>
+          <div class="intro-portrait-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293801/HSU_3764_rjmn0m.jpg" alt="Shawn"></div>
           <!-- Engineer icons pop out from behind portrait -->
           <div class="portrait-icons" id="groomIcons">
             <div class="portrait-icon icon-code">
@@ -202,7 +206,8 @@
     <div class="intro-container reversed">
       <div class="intro-portrait-wrap">
         <div class="intro-portrait" id="bride-portrait">
-          <div class="intro-portrait-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293791/HSU_3732_l44vrs.jpg" alt="Emma"></div>
+          <div class="intro-portrait-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293791/HSU_3732_l44vrs.jpg" alt="Emma"></div>
           <!-- Interior designer icons pop out from behind portrait -->
           <div class="portrait-icons" id="brideIcons">
             <div class="portrait-icon icon-ruler">
@@ -283,89 +288,114 @@
       <div class="accent-line"></div>
     </div>
     <div class="horizontal-gallery-wrapper">
+      <button class="gallery-arrow gallery-arrow-prev" id="galleryPrev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="gallery-arrow gallery-arrow-next" id="galleryNext" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+      <div class="gallery-counter" id="galleryCounter"></div>
       <div class="horizontal-gallery" id="hGallery">
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293865/HO-1_wygybe.jpg" alt="Ceremony" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293865/HO-1_wygybe.jpg" alt="Ceremony"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">The ceremony begins</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293865/HO-2_sihjj0.jpg" alt="Vows" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293865/HO-2_sihjj0.jpg" alt="Vows"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Exchanging vows</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293864/HO-3_rns3cg.jpg" alt="First Kiss" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293864/HO-3_rns3cg.jpg" alt="First Kiss"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">The first kiss</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293870/HO-4_xtiexz.jpg" alt="Rings" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293870/HO-4_xtiexz.jpg" alt="Rings"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Ring exchange</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293870/HO-5_qgssuf.jpg" alt="Family" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293870/HO-5_qgssuf.jpg" alt="Family"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">With our beloved families</span>
           </div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293864/HO-6_azhu7p.jpg" alt="Reception" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293864/HO-6_azhu7p.jpg" alt="Reception"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Reception entrance</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293875/HO-7_qqa94w.jpg" alt="First Dance" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293875/HO-7_qqa94w.jpg" alt="First Dance"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Our first dance</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293874/HO-8_lvski7.jpg" alt="Toast" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293874/HO-8_lvski7.jpg" alt="Toast"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Raising a toast</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293873/HO-9_gx0mzr.jpg" alt="Cake" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293873/HO-9_gx0mzr.jpg" alt="Cake"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Cutting the cake</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293869/HO-10_ne6fru.jpg" alt="Friends" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293869/HO-10_ne6fru.jpg" alt="Friends"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Surrounded by friends</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293873/HO-11_eflxt4.jpg" alt="Bouquet" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293873/HO-11_eflxt4.jpg" alt="Bouquet"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Bouquet toss</span></div>
         </div>
         <div class="h-gallery-item">
           <div class="h-gallery-item-inner">
-            <div class="h-gallery-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293866/HO-12_jvrea9.jpg" alt="Exit" loading="lazy" decoding="async"
-                style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="h-gallery-item-bg"><img
+                src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293866/HO-12_jvrea9.jpg" alt="Exit"
+                loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>
           </div>
           <div class="h-gallery-item-overlay"><span class="h-gallery-item-caption">Our grand exit</span></div>
         </div>
@@ -391,74 +421,86 @@
     <div class="masonry-grid" id="masonryGrid">
       <div class="masonry-item" style="--aspect:3/4;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293867/HO-13_cqspvd.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293867/HO-13_cqspvd.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:4/5;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293872/HO-14_biehkk.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293872/HO-14_biehkk.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:1/1;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293861/HO-15_xj6xrj.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293861/HO-15_xj6xrj.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:3/4;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293863/HO-16_udsybr.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293863/HO-16_udsybr.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:4/3;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293809/HO-17_f5gv21.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293809/HO-17_f5gv21.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:3/4;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293804/HO-18_wifg9f.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293804/HO-18_wifg9f.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:5/4;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293804/HO-19_sqaiss.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293804/HO-19_sqaiss.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:3/4;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293805/HO-20_gz2ofg.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293805/HO-20_gz2ofg.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:1/1;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293803/HO-21_djotq1.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293803/HO-21_djotq1.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:4/5;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293800/HO-22_jp94v9.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293800/HO-22_jp94v9.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:3/4;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293867/HO-13_cqspvd.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293867/HO-13_cqspvd.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
       <div class="masonry-item" style="--aspect:4/3;">
         <div class="masonry-item-inner">
-          <div class="masonry-item-bg"><img src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293872/HO-14_biehkk.jpg" alt="Memory" loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="masonry-item-bg"><img
+              src="https://res.cloudinary.com/dnqduthcp/image/upload/v1775293872/HO-14_biehkk.jpg" alt="Memory"
+              loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
     </div>
@@ -504,17 +546,17 @@
       </div>
 
       <div class="portal-body">
-        <p>感謝你參與我們的婚禮！<br>請將今天捕捉到的精彩瞬間分享給我們</p>
+        <p>感謝你參與我們的婚禮！<br>今天捕捉到的精彩瞬間會再分享給大家<br>敬請期待</p>
 
-        <a href="你的相簿連結" target="_blank" class="upload-btn">
-          <span>開啟相簿並上傳</span>
+        <a href="相簿連結" target="_blank" class="upload-btn">
+          <span>開啟相簿(此功能待新郎休息足夠會再開發完成)</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
 
-        <p class="portal-hint">建議使用 LINE 或預設瀏覽器開啟</p>
+        <p class="portal-hint">愛各位喔！</p>
       </div>
     </div>
   </div>

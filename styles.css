@@ -41,7 +41,7 @@ body {
   /* 新增：雙層背景。第一層是半透明黑色遮罩，第二層是你的紋路圖 */
   background-image:
     linear-gradient(rgba(43, 43, 43, 0.88), rgba(108, 108, 108, 0.88)),
-    url('/img/digital-art-with-organic-floral-shapes.png');
+    url('https://res.cloudinary.com/dnqduthcp/image/upload/v1775293758/digital-art-with-organic-floral-shapes_r2qs7q.png');
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -62,7 +62,7 @@ body::before {
   pointer-events: none;
   z-index: -1;
   opacity: 0.01;
-  background-image: url('/img/digital-art-with-organic-floral-shapes.png');
+  background-image: url('https://res.cloudinary.com/dnqduthcp/image/upload/v1775293758/digital-art-with-organic-floral-shapes_r2qs7q.png');
   background-size: 600px;
   /* 縮小尺寸變成重複細紋 */
   background-repeat: repeat;
@@ -1181,6 +1181,107 @@ section {
   }
 }
 
+/* Arrow buttons — hidden on desktop */
+.gallery-arrow {
+  display: none;
+}
+
+.gallery-counter {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .horizontal-gallery-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 3rem;
+  }
+
+  .horizontal-gallery {
+    gap: 0;
+    padding: 2rem 0;
+    width: max-content;
+    transition: transform 0.45s var(--ease-smooth);
+    will-change: transform;
+  }
+
+  .h-gallery-item {
+    width: 100vw;
+    height: 65vh;
+    max-height: 480px;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+
+  .h-gallery-item-inner {
+    filter: grayscale(0%);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .h-gallery-item .h-gallery-item-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .gallery-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(200, 85, 58, 0.12);
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    color: var(--color-accent);
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s, opacity 0.3s;
+    backdrop-filter: blur(4px);
+    padding: 0;
+  }
+
+  .gallery-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .gallery-arrow:active {
+    background: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  .gallery-arrow:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .gallery-arrow-prev {
+    left: 1rem;
+  }
+
+  .gallery-arrow-next {
+    right: 1rem;
+  }
+
+  .gallery-counter {
+    display: block;
+    position: absolute;
+    bottom: 0.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+}
+
 /* ═══ MASONRY GALLERY ═══ */
 #gallery-prewedding {
   padding: 8rem 2rem;
@@ -1259,6 +1360,10 @@ section {
   .masonry-grid {
     columns: 1;
     max-width: 400px;
+  }
+
+  .masonry-item {
+    --aspect: 4/3 !important;
   }
 }
 
