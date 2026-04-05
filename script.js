@@ -67,6 +67,7 @@
    ⑥ FOOTER: RIGHT side, tilts RIGHT, petals bloom open
    ═══════════════════════════════════════════════════════════════════ */
 (function initTulip3D() {
+  if (window.innerWidth <= 639) return;
   // ─── RENDERER SETUP ───
   const canvas = document.getElementById('tulip-canvas');
   const renderer = new THREE.WebGLRenderer({
