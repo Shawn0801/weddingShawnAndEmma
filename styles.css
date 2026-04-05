@@ -599,14 +599,11 @@ section {
 }
 
 .hero-portrait {
-  position: absolute;
-  width: 380px;
-  height: 520px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  flex-shrink: 0;
+  width: 320px;
+  height: 440px;
   overflow: hidden;
-  border-radius: 200px 200px 20px 20px;
+  border-radius: 160px 160px 20px 20px;
   opacity: 0;
 }
 
@@ -632,6 +629,10 @@ section {
   z-index: 2;
   text-align: center;
   padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .hero-date {
@@ -645,27 +646,27 @@ section {
 }
 
 .hero-names {
-  font-family: var(--font-display);
   font-weight: 300;
   color: var(--color-white-semi);
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
+  line-height: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .hero-name {
-  display: block;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   opacity: 0;
   transform: translateY(40px);
 }
 
 .hero-ampersand {
-  display: block;
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   color: var(--color-accent);
-  font-style: italic;
   font-weight: 300;
-  margin: 0.3rem 0;
+  margin: 0;
   opacity: 0;
 }
 
@@ -722,9 +723,17 @@ section {
 
 @media (max-width: 768px) {
   .hero-portrait {
-    width: 260px;
-    height: 360px;
-    border-radius: 140px 140px 16px 16px;
+    width: 220px;
+    height: 300px;
+    border-radius: 110px 110px 14px 14px;
+  }
+
+  .hero-name {
+    font-size: clamp(2rem, 9vw, 3.5rem);
+  }
+
+  .hero-content {
+    gap: 1.2rem;
   }
 }
 

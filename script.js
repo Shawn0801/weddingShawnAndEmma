@@ -587,19 +587,18 @@ function preloadImages() {
 }
 
 window.addEventListener('load', () => {
-  // Start preloading images
-  preloadImages().then(() => {
-    console.log('✅ All images preloaded');
-  });
+  const minDelay = new Promise(resolve => setTimeout(resolve, 2500));
 
-  // Show content after loader animation
-  gsap.to('#loader', {
-    delay: 2.5, duration: 0.8, opacity: 0,
-    onComplete: () => {
-      document.getElementById('loader').classList.add('hidden');
-      initHeroAnimations();
-      ScrollTrigger.refresh();
-    }
+  Promise.all([preloadImages(), minDelay]).then(() => {
+    console.log('✅ All images preloaded');
+    gsap.to('#loader', {
+      duration: 0.8, opacity: 0,
+      onComplete: () => {
+        document.getElementById('loader').classList.add('hidden');
+        initHeroAnimations();
+        ScrollTrigger.refresh();
+      }
+    });
   });
 });
 
@@ -626,7 +625,7 @@ function initHeroAnimations() {
 
   // Parallax
   gsap.to('.hero-portrait', {
-    y: -80, scale: 0.95, opacity: 0.3,
+    y: -80, scale: 0.95,
     scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
   });
   gsap.to('.hero-content', {
