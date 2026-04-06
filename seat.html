@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>座位查詢 — Shawn & Emma Wedding</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Noto+Serif+JP:wght@200;300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       VARIABLES — 沿用 index.html 色彩系統
+       ═══════════════════════════════════════════ */
+    :root {
+      --color-bg: #1a1a1a;
+      --color-bg-warm: #222220;
+      --color-bg-deep: #141413;
+      --color-surface: #2a2a28;
+      --color-accent: #c8553a;
+      --color-accent-light: #e07455;
+      --color-accent-soft: #d4785f;
+      --color-accent-dark: #943d2a;
+      --color-accent-glow: rgba(200, 85, 58, 0.15);
+      --color-white: #fafafa;
+      --color-white-warm: #f0ece6;
+      --color-white-muted: rgba(250, 250, 250, 0.55);
+      --color-white-semi: rgba(250, 250, 250, 0.4);
+      --color-text: #c8c4bc;
+      --color-divider: rgba(200, 85, 58, 0.18);
+      --color-highlight: #c8553a;
+      --color-highlight-glow: rgba(200, 85, 58, 0.35);
+      --color-inactive: #2a2a28;
+      --color-inactive-text: rgba(200, 196, 188, 0.35);
+      --font-display: 'Cormorant Garamond', 'Shippori Mincho', serif;
+      --font-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
+      --font-body: 'Zen Kaku Gothic New', 'Cormorant Garamond', sans-serif;
+      --font-cjk: 'Noto Serif TC', 'Shippori Mincho', serif;
+      --radius: 14px;
+      --table-radius: 25px;
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET
+       ═══════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-cjk);
+      background-color: var(--color-bg);
+      background-image:
+        linear-gradient(rgba(43, 43, 43, 0.88), rgba(108, 108, 108, 0.88)),
+        url('https://res.cloudinary.com/dnqduthcp/image/upload/v1775293758/digital-art-with-organic-floral-shapes_r2qs7q.png');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+      color: var(--color-text);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.01;
+      background-image: url('https://res.cloudinary.com/dnqduthcp/image/upload/v1775293758/digital-art-with-organic-floral-shapes_r2qs7q.png');
+      background-size: 600px;
+      background-repeat: repeat;
+    }
+
+    /* ═══════════════════════════════════════════
+       BACK BUTTON
+       ═══════════════════════════════════════════ */
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: rgba(42, 42, 40, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--color-divider);
+      border-radius: 50px;
+      color: var(--color-accent);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+    }
+
+    .back-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .back-btn:hover {
+      background: rgba(200, 85, 58, 0.15);
+      border-color: var(--color-accent);
+      transform: translateX(-2px);
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN STATES
+       ═══════════════════════════════════════════ */
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: opacity .45s var(--ease), visibility .45s;
+    }
+
+    .screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .screen.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ═══════════════════════════════════════════
+       LOADING
+       ═══════════════════════════════════════════ */
+    .loader-wrap {
+      text-align: center;
+    }
+
+    .loader-ring {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      border: 2px solid var(--color-divider);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader-text {
+      font-family: var(--font-display);
+      color: var(--color-accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: loaderPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       INPUT SCREEN
+       ═══════════════════════════════════════════ */
+    .input-card {
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .input-subtitle {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .input-title {
+      font-family: var(--font-cjk);
+      font-weight: 500;
+      font-size: 2rem;
+      color: var(--color-white-warm);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    .input-desc {
+      font-size: 0.88rem;
+      color: var(--color-white-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Accent line */
+    .accent-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+      margin: 1.2rem auto 1.5rem;
+    }
+
+    .input-field-wrap {
+      display: flex;
+      gap: 10px;
+    }
+
+    #guest-name {
+      flex: 1;
+      padding: 14px 18px;
+      font-family: var(--font-cjk);
+      font-size: 1rem;
+      color: var(--color-white);
+      border: 1.5px solid rgba(200, 85, 58, 0.25);
+      border-radius: var(--radius);
+      background: rgba(42, 42, 40, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      outline: none;
+      transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
+    }
+
+    #guest-name::placeholder {
+      color: var(--color-white-semi);
+    }
+
+    #guest-name:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 20px rgba(200, 85, 58, 0.15);
+    }
+
+    #btn-search {
+      padding: 14px 28px;
+      font-family: var(--font-cjk);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-white);
+      background: var(--color-accent);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all .3s var(--ease);
+      white-space: nowrap;
+      letter-spacing: 0.08em;
+    }
+
+    #btn-search:hover {
+      background: var(--color-accent-light);
+      box-shadow: 0 8px 24px rgba(200, 85, 58, 0.3);
+      transform: translateY(-1px);
+    }
+
+    #btn-search:active {
+      transform: scale(.96);
+      background: var(--color-accent-dark);
+    }
+
+    /* shake 動畫 */
+    .shake {
+      animation: shake .4s ease;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20%,
+      60% {
+        transform: translateX(-6px);
+      }
+
+      40%,
+      80% {
+        transform: translateX(6px);
+      }
+    }
+
+    /* 裝飾花瓣 */
+    .decorative-petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      font-size: 1.4rem;
+      color: var(--color-accent);
+      opacity: .15;
+      animation: petal-float 6s ease-in-out infinite;
+    }
+
+    .p1 {
+      top: 12%;
+      left: 8%;
+      animation-delay: 0s;
+    }
+
+    .p2 {
+      top: 60%;
+      right: 6%;
+      animation-delay: 2s;
+    }
+
+    .p3 {
+      bottom: 15%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes petal-float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-18px) rotate(15deg);
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       RESULT SCREEN
+       ═══════════════════════════════════════════ */
+    #screen-result {
+      justify-content: flex-start;
+      padding-top: env(safe-area-inset-top, 20px);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+      overflow-y: auto;
+    }
+
+    .result-info {
+      text-align: center;
+      padding: 20px 16px 12px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .result-guest-name {
+      font-family: var(--font-cjk);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--color-white-warm);
+      margin-bottom: 4px;
+    }
+
+    .result-table {
+      font-size: 1.05rem;
+      margin-bottom: 2px;
+      color: var(--color-text);
+    }
+
+    .result-table strong {
+      color: var(--color-accent-light);
+    }
+
+    .result-location {
+      font-size: .88rem;
+      color: var(--color-white-muted);
+      margin-bottom: 4px;
+    }
+
+    .result-hint {
+      font-size: .78rem;
+      color: var(--color-white-semi);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════
+       SEATING LAYOUT
+       ═══════════════════════════════════════════ */
+    .seating-layout {
+      display: flex;
+      gap: 0;
+      width: 100%;
+      max-width: 600px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .zone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 8px;
+    }
+
+    .zone-main {
+      flex: 1.2;
+    }
+
+    .zone-title {
+      font-family: var(--font-display);
+      font-size: .85rem;
+      font-weight: 400;
+      color: var(--color-accent-soft);
+      letter-spacing: .15em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .zone-divider {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--color-divider), transparent);
+      align-self: stretch;
+      margin: 10px 0;
+      border-radius: 1px;
+    }
+
+    /* ═══════════════════════════════════════════
+       TABLE GRID
+       ═══════════════════════════════════════════ */
+    .table-grid {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .grid-main {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-private {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    /* 桌次卡片 */
+    .table-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      border-radius: var(--table-radius);
+      text-align: center;
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+
+    .table-id {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .table-name {
+      font-size: .75rem;
+      letter-spacing: .04em;
+    }
+
+    /* 高亮 — 用戶所在桌 */
+    .table-active {
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+      color: var(--color-white);
+      box-shadow: 0 0 24px var(--color-highlight-glow), 0 4px 16px rgba(0, 0, 0, 0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .table-active .table-id {
+      color: var(--color-white);
+    }
+
+    .table-active .table-name {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 24px var(--color-highlight-glow), 0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 36px var(--color-highlight-glow), 0 6px 24px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    /* 非相關桌次 */
+    .table-inactive {
+      background: var(--color-inactive);
+      border: 1px solid rgba(200, 85, 58, 0.08);
+      color: var(--color-inactive-text);
+    }
+
+    .table-inactive .table-id {
+      color: var(--color-inactive-text);
+    }
+
+    .table-inactive .table-name {
+      color: rgba(200, 196, 188, 0.25);
+    }
+
+    /* ═══════════════════════════════════════════
+       RETRY BUTTON
+       ═══════════════════════════════════════════ */
+    .btn-retry {
+      margin-top: 18px;
+      margin-bottom: 12px;
+      padding: 12px 36px;
+      font-family: var(--font-cjk);
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      background: transparent;
+      border: 1.5px solid var(--color-accent);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all .3s var(--ease);
+      letter-spacing: 0.06em;
+    }
+
+    .btn-retry:hover {
+      background: rgba(200, 85, 58, 0.1);
+      box-shadow: 0 4px 16px rgba(200, 85, 58, 0.15);
+    }
+
+    .btn-retry:active {
+      transform: scale(.96);
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    /* ═══════════════════════════════════════════
+       NOT FOUND
+       ═══════════════════════════════════════════ */
+    .not-found-card {
+      text-align: center;
+      max-width: 340px;
+    }
+
+    .nf-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .nf-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--color-white-warm);
+    }
+
+    .nf-desc {
+      font-size: .88rem;
+      color: var(--color-white-muted);
+      margin-bottom: 22px;
+    }
+
+    /* ═══════════════════════════════════════════
+       ERROR
+       ═══════════════════════════════════════════ */
+    .error-msg {
+      text-align: center;
+      color: var(--color-accent);
+      font-size: .95rem;
+      line-height: 1.6;
+    }
+
+    .error-msg small {
+      color: var(--color-white-muted);
+      font-size: .78rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════ */
+    @media (min-width: 600px) {
+      .grid-main {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .grid-private {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .table-card {
+        padding: 18px 10px;
+      }
+
+      .table-id {
+        font-size: 1.6rem;
+      }
+
+      .table-name {
+        font-size: .82rem;
+      }
+
+      .seating-layout {
+        max-width: 720px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid-main {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .grid-private {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .seating-layout {
+        max-width: 900px;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       FILM GRAIN (from main site)
+       ═══════════════════════════════════════════ */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 返回首頁 -->
+  <a href="index.html" class="back-btn" id="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+    <span>Back</span>
+  </a>
+
+  <!-- ══ 載入畫面 ══ -->
+  <div id="screen-loading" class="screen visible">
+    <div class="loader-wrap">
+      <div class="loader-ring"></div>
+      <p class="loader-text">Loading…</p>
+    </div>
+  </div>
+
+  <!-- ══ 姓名輸入畫面 ══ -->
+  <div id="screen-input" class="screen hidden">
+    <div class="input-card">
+      <p class="input-subtitle">Shawn & Emma's Wedding</p>
+      <h1 class="input-title">座位查詢</h1>
+      <div class="accent-line"></div>
+      <p class="input-desc">請輸入您的姓名以查詢桌次</p>
+      <div class="input-field-wrap">
+        <input id="guest-name" type="text" placeholder="請輸入姓名" autocomplete="off">
+        <button id="btn-search" type="button">查詢</button>
+      </div>
+    </div>
+    <div class="decorative-petals" aria-hidden="true">
+      <span class="petal p1">❀</span>
+      <span class="petal p2">❀</span>
+      <span class="petal p3">❀</span>
+    </div>
+  </div>
+
+  <!-- ══ 查詢結果畫面 ══ -->
+  <div id="screen-result" class="screen hidden">
+    <div id="result-info" class="result-info"></div>
+
+    <div class="seating-layout">
+      <!-- 主場地 -->
+      <section class="zone zone-main">
+        <h2 class="zone-title">主場地</h2>
+        <div id="grid-main-hall" class="table-grid grid-main"></div>
+      </section>
+
+      <!-- 分隔線 -->
+      <div class="zone-divider"></div>
+
+      <!-- 包廂 -->
+      <section class="zone zone-private">
+        <h2 class="zone-title">包廂</h2>
+        <div id="grid-private-room" class="table-grid grid-private"></div>
+      </section>
+    </div>
+
+    <button class="btn-retry" type="button">重新查詢</button>
+  </div>
+
+  <!-- ══ 查無結果畫面 ══ -->
+  <div id="screen-not-found" class="screen hidden">
+    <div class="not-found-card">
+      <p class="nf-icon">😢</p>
+      <h2 class="nf-title">查無此賓客</h2>
+      <p class="nf-desc">請確認姓名後再試一次</p>
+      <button class="btn-retry" type="button">重新查詢</button>
+    </div>
+  </div>
+
+  <!-- Scripts — 引用 chairForU 的 JS 模組 -->
+  <script src="chairForU/js/utils.js"></script>
+  <script src="chairForU/js/DataLoader.js"></script>
+  <script src="chairForU/js/SearchEngine.js"></script>
+  <script src="chairForU/js/UIRenderer.js"></script>
+  <script>
+    /**
+     * App — 座位查詢系統入口（適配 seat.html 路徑）
+     */
+    (async function initApp() {
+      try {
+        // 1. 載入設定（指向 chairForU/data/ 目錄）
+        const cfgRes = await fetch('./chairForU/data/config.json');
+        const config = await cfgRes.json();
+
+        // 修正 jsonPath 以適配 seat.html 所在的根目錄
+        if (config.jsonPath && config.jsonPath.startsWith('./data/')) {
+          config.jsonPath = './chairForU/data/' + config.jsonPath.replace('./data/', '');
+        }
+
+        // 2. 載入資料
+        const loader = new DataLoader(config);
+        const data = await loader.load();
+
+        // 3. 建立搜尋引擎
+        const engine = new SearchEngine();
+        engine.buildIndex(data.tables);
+
+        // 4. 初始化 UI
+        const ui = new UIRenderer({
+          tables: data.tables,
+          searchEngine: engine,
+          onSearch(query) {
+            const result = engine.search(query);
+            ui.renderResult(result);
+          }
+        });
+
+        // 5. 顯示輸入畫面
+        ui.showScreen('input');
+
+      } catch (err) {
+        console.error('初始化失敗:', err);
+        const el = document.getElementById('screen-loading');
+        if (el) el.innerHTML = `<p class="error-msg">載入失敗，請重新整理頁面<br><small>${err.message}</small></p>`;
+      }
+    })();
+  </script>
+</body>
+
+</html>

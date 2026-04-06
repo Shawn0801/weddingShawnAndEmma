@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>婚禮座位查詢 — Shawn & Emma</title>
+  <link rel="icon" type="image/svg+xml" href="../wedding/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;500;600;700&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/seating.css">
+</head>
+<body>
+
+  <!-- ══ 載入畫面 ══ -->
+  <div id="screen-loading" class="screen visible">
+    <div class="loader-wrap">
+      <div class="loader-ring"></div>
+      <p class="loader-text">載入中…</p>
+    </div>
+  </div>
+
+  <!-- ══ 姓名輸入畫面 ══ -->
+  <div id="screen-input" class="screen hidden">
+    <div class="input-card">
+      <p class="input-subtitle">Shawn & Emma's Wedding</p>
+      <h1 class="input-title">座位查詢</h1>
+      <p class="input-desc">請輸入您的姓名以查詢桌次</p>
+      <div class="input-field-wrap">
+        <input id="guest-name" type="text" placeholder="請輸入姓名" autocomplete="off">
+        <button id="btn-search" type="button">查詢</button>
+      </div>
+    </div>
+    <div class="decorative-petals" aria-hidden="true">
+      <span class="petal p1">❀</span>
+      <span class="petal p2">❀</span>
+      <span class="petal p3">❀</span>
+    </div>
+  </div>
+
+  <!-- ══ 查詢結果畫面 ══ -->
+  <div id="screen-result" class="screen hidden">
+    <div id="result-info" class="result-info"></div>
+
+    <div class="seating-layout">
+      <!-- 主場地 -->
+      <section class="zone zone-main">
+        <h2 class="zone-title">主場地</h2>
+        <div id="grid-main-hall" class="table-grid grid-main"></div>
+      </section>
+
+      <!-- 分隔線 -->
+      <div class="zone-divider"></div>
+
+      <!-- 包廂 -->
+      <section class="zone zone-private">
+        <h2 class="zone-title">包廂</h2>
+        <div id="grid-private-room" class="table-grid grid-private"></div>
+      </section>
+    </div>
+
+    <button class="btn-retry" type="button">重新查詢</button>
+  </div>
+
+  <!-- ══ 查無結果畫面 ══ -->
+  <div id="screen-not-found" class="screen hidden">
+    <div class="not-found-card">
+      <p class="nf-icon">😢</p>
+      <h2 class="nf-title">查無此賓客</h2>
+      <p class="nf-desc">請確認姓名後再試一次</p>
+      <button class="btn-retry" type="button">重新查詢</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/DataLoader.js"></script>
+  <script src="js/SearchEngine.js"></script>
+  <script src="js/UIRenderer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

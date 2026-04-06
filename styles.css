@@ -1745,6 +1745,13 @@ body::after {
 }
 
 
+/* 座位查詢浮動按鈕 */
+.seating-btn {
+  bottom: 6.5rem !important;
+  text-decoration: none;
+  animation-delay: 0.3s;
+}
+
 /* 相簿 */
 /* 浮動按鈕樣式 */
 .portal-btn {
