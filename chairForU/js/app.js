@@ -31,6 +31,16 @@
   } catch (err) {
     console.error('初始化失敗:', err);
     const el = document.getElementById('screen-loading');
-    if (el) el.innerHTML = `<p class="error-msg">載入失敗，請重新整理頁面<br><small>${err.message}</small></p>`;
+    if (el) {
+      const p = document.createElement('p');
+      p.className = 'error-msg';
+      p.textContent = '載入失敗，請重新整理頁面';
+      const small = document.createElement('small');
+      small.textContent = err.message;
+      p.appendChild(document.createElement('br'));
+      p.appendChild(small);
+      el.textContent = '';
+      el.appendChild(p);
+    }
   }
 })();

@@ -71,10 +71,16 @@ class UIRenderer {
     this.showScreen('result');
   }
 
+  _esc(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
   _renderInfo(match, allResults) {
     let html = `
-      <p class="result-guest-name">${match.guestName}，您好！</p>
-      <p class="result-table">您的座位在 <strong>${match.tableName}</strong>（第 ${match.tableId} 桌）</p>
+      <p class="result-guest-name">${this._esc(match.guestName)}，您好！</p>
+      <p class="result-table">您的座位在 <strong>${this._esc(match.tableName)}</strong>（第 ${this._esc(String(match.tableId))} 桌）</p>
       <p class="result-location">${match.location === 'private_room' ? '📍 包廂區' : '📍 主場地'}</p>
     `;
     if (allResults.length > 1) {
@@ -95,8 +101,8 @@ class UIRenderer {
     const isActive = table.id === highlightId;
     return `
       <div class="table-card ${isActive ? 'table-active' : 'table-inactive'}">
-        <span class="table-id">${table.id}</span>
-        <span class="table-name">${table.name}</span>
+        <span class="table-id">${this._esc(String(table.id))}</span>
+        <span class="table-name">${this._esc(table.name)}</span>
       </div>
     `;
   }
