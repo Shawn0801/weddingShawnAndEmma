@@ -1824,9 +1824,13 @@ body::after {
 }
 
 .portal-btn .btn-label {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.seat-label{
+   font-size: 0.6rem;
 }
 
 @keyframes btnPulse {
