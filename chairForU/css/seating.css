@@ -14,7 +14,7 @@
   --color-inactive-text: #bbb;
   --color-divider: #e0d6cc;
   --font-display: 'La Belle Aurore', 'Shippori Mincho', serif;
-  --font-body: 'Noto Sans TC', sans-serif;
+  --font-body: 'Roboto Condensed', sans-serif;
   --radius: 14px;
   --ease: cubic-bezier(.4, 0, .2, 1);
 }

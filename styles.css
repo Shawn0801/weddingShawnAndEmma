@@ -18,7 +18,7 @@
   --font-display: 'La Belle Aurore', 'Shippori Mincho', serif;
   --font-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
   --font-zh: 'Noto Sans TC', sans-serif;
-  --font-body: 'Zen Kaku Gothic New', sans-serif;
+  --font-body: 'Roboto Condensed', sans-serif;
   --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -441,7 +441,7 @@ a {
 
 /* Loader 文字樣式 */
 .loader-text {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
@@ -551,6 +551,12 @@ a {
   .nav-dot {
     width: 11px;
     height: 10px;
+  }
+}
+
+@media (max-width: 639px) {
+  .nav-dots {
+    display: none;
   }
 }
 
@@ -686,6 +692,7 @@ section {
 .hero-scroll-hint {
   position: absolute;
   bottom: 3rem;
+  margin-top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1558,6 +1565,7 @@ section {
 }
 
 .footer-label {
+  font-family: var(--font-body);
   font-size: 0.65rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
@@ -1587,7 +1595,7 @@ section {
 }
 
 .footer-location {
-  font-family: var(--font-display);
+  font-family: var(--font-zh);
   font-size: clamp(1rem, 2vw, 1.3rem);
   color: var(--color-text);
   /* font-style: italic; */
@@ -1596,6 +1604,7 @@ section {
 }
 
 .footer-address {
+  font-family: var(--font-zh);
   font-size: 0.85rem;
   color: var(--color-white-muted);
   line-height: 1.8;
@@ -1624,6 +1633,7 @@ section {
 }
 
 .footer-bottom {
+  font-family: var(--font-body);
   margin-top: 1rem;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
@@ -1686,11 +1696,11 @@ section {
   }
 
   .hw-bg img {
-    object-position: 60% center;
+    object-position: 70% center;
   }
 
   .hw-portrait {
-    top: 8rem;
+    top: 6rem;
     left: -1rem;
     width: calc(100% - 2rem);
   }
@@ -1793,7 +1803,9 @@ body::after {
 
 /* 座位查詢浮動按鈕 */
 .seating-btn {
-  bottom: 6.5rem !important;
+  right: auto !important;
+  left: 2rem;
+  bottom: 1rem;
   text-decoration: none;
   animation-delay: 0.3s;
 }
@@ -1802,12 +1814,12 @@ body::after {
 /* 浮動按鈕樣式 */
 .portal-btn {
   position: fixed;
-  bottom: 2.5rem;
+  bottom: 1rem;
   right: 2rem;
   z-index: 500;
   background: var(--color-accent);
   color: var(--color-white);
-  padding: 0.8rem 1.2rem;
+  padding: 0.5rem 1rem;
   border-radius: 50px;
   display: flex;
   align-items: center;

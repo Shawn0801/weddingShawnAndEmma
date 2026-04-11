@@ -768,6 +768,16 @@ function initMobileGallery() {
   if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
 
+  // 滑動手勢
+  let touchStartX = 0;
+  gallery.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  gallery.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+  }, { passive: true });
+
   goTo(0);
 }
 
