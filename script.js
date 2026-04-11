@@ -1056,6 +1056,26 @@ navDots.forEach(d => {
     onEnter: () => { if (!hasStarted) startWriting(); },
     onEnterBack: () => { if (!hasStarted) startWriting(); }
   });
+
+  // ── Reveal: pin section → text fades → bg brightens → portrait appears ──
+  // Pin handwriting section when its bottom hits the viewport bottom,
+  // hold for 700px of scroll so all effects complete before continuing.
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '#handwriting-section',
+      start: 'bottom bottom',
+      end: '+=800',
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
+    }
+  })
+    // 0.0–0.25 : 手寫文字淡出
+    .to('#handwritingText', { opacity: 0, ease: 'power1.in', duration: 0.25 }, 0)
+    // 0.2–0.6  : 暗幕消失，Image 2 亮起
+    .to('.hw-bg-overlay',   { opacity: 0, ease: 'power2.out', duration: 0.4 }, 0.2)
+    // 0.6–1.0  : Image 2 已亮，Image 1 在左上角淡入
+    .to('#hwPortrait',      { opacity: 1, ease: 'power2.out', duration: 0.4 }, 0.6);
 })();
 
 // 相簿
