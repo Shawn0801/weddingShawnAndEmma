@@ -1066,6 +1066,7 @@ section {
   }
 
   .intro-bio {
+    text-align: left;
     max-width: 100%;
   }
 
@@ -1696,13 +1697,13 @@ section {
   }
 
   .hw-bg img {
-    object-position: 70% center;
+    object-position: 60% center;
   }
 
   .hw-portrait {
-    top: 6rem;
+    top: 1rem;
     left: -1rem;
-    width: calc(100% - 2rem);
+    width: 130%;
   }
 }
 

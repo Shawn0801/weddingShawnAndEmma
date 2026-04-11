@@ -940,7 +940,7 @@ navDots.forEach(d => {
    ═══════════════════════════════════════════ */
 (function initHandwriting() {
   const seed = 42;
-  const text = 'From the moment our eyes first met, I knew something beautiful had begun. Every laugh we share, every quiet evening together, every adventure we take — they all weave into the story of us. I promise to love you through every season, to hold your hand through every storm, and to celebrate every sunrise by your side. This is our forever.';
+  const text = 'Watch the sky, you know I Like a star shining in your eyes. Sometimes I wonder why Just wanna hold your hands, And walk with you side by side.I know you know, I love you, baby.I know you know, I love you, baby.'
 
   const fonts = [
     'caveat', 'cedarville-cursive', 'indie-flower',
@@ -1083,9 +1083,9 @@ navDots.forEach(d => {
     // 0.0–0.25 : 手寫文字淡出
     .to('#handwritingText', { opacity: 0, ease: 'power1.in', duration: 0.25 }, 0)
     // 0.2–0.6  : 暗幕消失，Image 2 亮起
-    .to('.hw-bg-overlay',   { opacity: 0, ease: 'power2.out', duration: 0.4 }, 0.2)
+    .to('.hw-bg-overlay', { opacity: 0, ease: 'power2.out', duration: 0.4 }, 0.2)
     // 0.6–1.0  : Image 2 已亮，Image 1 在左上角淡入
-    .to('#hwPortrait',      { opacity: 1, ease: 'power2.out', duration: 0.4 }, 0.6);
+    .to('#hwPortrait', { opacity: 1, ease: 'power2.out', duration: 0.4 }, 0.6);
 })();
 
 // 相簿
