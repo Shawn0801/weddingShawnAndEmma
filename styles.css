@@ -1679,8 +1679,8 @@ section {
 
 .hw-portrait {
   position: absolute;
-  top: 17rem;
-  left: 15rem;
+  top: 2rem;
+  left: 4rem;
   width: 1000px;
   z-index: 3;
   opacity: 0;
