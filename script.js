@@ -29,7 +29,6 @@
     petal.innerHTML = '❀';
 
     const size = Math.random() * 12 + 8;
-    const color = petalColors[Math.floor(Math.random() * petalColors.colors)];
 
     petal.style.fontSize = `${size}px`;
     petal.style.color = petalColors[Math.floor(Math.random() * petalColors.length)];

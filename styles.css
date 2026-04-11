@@ -15,9 +15,10 @@
   --color-text: #c8c4bc;
   --color-divider: rgba(200, 85, 58, 0.18);
   --color-red-string: #c8553a;
-  --font-display: 'Cormorant Garamond', 'Shippori Mincho', serif;
+  --font-display: 'La Belle Aurore', 'Shippori Mincho', serif;
   --font-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
-  --font-body: 'Zen Kaku Gothic New', 'Cormorant Garamond', sans-serif;
+  --font-zh: 'Noto Sans TC', sans-serif;
+  --font-body: 'Zen Kaku Gothic New', sans-serif;
   --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -657,12 +658,14 @@ section {
 }
 
 .hero-name {
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 5.5rem);
   opacity: 0;
   transform: translateY(40px);
 }
 
 .hero-ampersand {
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   color: var(--color-accent);
   font-weight: 300;
@@ -985,7 +988,7 @@ section {
 }
 
 .intro-name-jp {
-  font-family: var(--font-jp);
+  font-family: var(--font-zh);
   font-size: 1rem;
   font-weight: 200;
   color: var(--color-white-muted);
@@ -1574,7 +1577,7 @@ section {
 }
 
 .footer-date-jp {
-  font-family: var(--font-jp);
+  font-family: var(--font-zh);
   font-size: clamp(1rem, 2.5vw, 1.5rem);
   font-weight: 200;
   color: var(--color-white-muted);
@@ -1587,7 +1590,7 @@ section {
   font-family: var(--font-display);
   font-size: clamp(1rem, 2vw, 1.3rem);
   color: var(--color-text);
-  font-style: italic;
+  /* font-style: italic; */
   margin-bottom: 0.5rem;
   opacity: 0;
 }

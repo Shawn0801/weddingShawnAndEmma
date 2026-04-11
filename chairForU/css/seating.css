@@ -13,8 +13,8 @@
   --color-inactive: #e8e8e8;
   --color-inactive-text: #bbb;
   --color-divider: #e0d6cc;
-  --font-display: 'Cormorant Garamond', 'Shippori Mincho', serif;
-  --font-body: 'Noto Serif TC', 'Shippori Mincho', serif;
+  --font-display: 'La Belle Aurore', 'Shippori Mincho', serif;
+  --font-body: 'Noto Sans TC', sans-serif;
   --radius: 14px;
   --ease: cubic-bezier(.4, 0, .2, 1);
 }
