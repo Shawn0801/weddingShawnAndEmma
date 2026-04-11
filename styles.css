@@ -1702,7 +1702,7 @@ section {
 
   .hw-portrait {
     top: 1rem;
-    left: -1rem;
+    left: -2rem;
     width: 130%;
   }
 }
