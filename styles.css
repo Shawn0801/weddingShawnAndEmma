@@ -1842,8 +1842,16 @@ body::after {
   text-transform: uppercase;
 }
 
-.seat-label{
-   font-size: 0.6rem;
+.seat-label {
+  font-size: 0.6rem;
+}
+
+.portal-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 @keyframes btnPulse {
