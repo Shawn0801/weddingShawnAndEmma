@@ -229,7 +229,7 @@
     }
 
     #guest-name {
-      flex: 1;
+      width: 100%;
       padding: 14px 18px;
       font-family: var(--font-cjk);
       font-size: 1rem;
@@ -441,15 +441,17 @@
        ═══════════════════════════════════════════ */
     .table-grid {
       display: grid;
-      gap: 18px;
+      gap: 10px;
       width: 100%;
       flex: 1;
-      align-content: space-around;
+      align-content: start;
     }
 
     /* 主場地：3 欄，col1/col2 各 3 桌，col3 有 4 桌 */
     .grid-main {
-      grid-template-columns: repeat(3, 1fr);
+      align-content: space-around;
+      grid-template-columns: repeat(3, minmax(0, 64px));
+      justify-content: space-around;
       grid-template-rows: repeat(4, auto);
     }
 
@@ -505,7 +507,8 @@
 
     /* 包廂：2 欄 S 型 */
     .grid-private {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 64px));
+      justify-content: space-around;
       grid-template-rows: repeat(5, auto);
     }
 
@@ -790,6 +793,43 @@
     .nf-modal-btn:active {
       transform: scale(.96);
     }
+
+    /* ═══ AUTOCOMPLETE ═══ */
+    .input-autocomplete-wrap {
+      position: relative;
+      flex: 1;
+    }
+
+    .autocomplete-list {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1.5px solid rgba(200, 85, 58, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+
+    .autocomplete-list.hidden { display: none; }
+
+    .autocomplete-item {
+      padding: 11px 16px;
+      font-size: .88rem;
+      cursor: pointer;
+      color: #1a1a1a;
+      border-bottom: 1px solid rgba(200, 85, 58, 0.1);
+      transition: background .12s;
+    }
+
+    .autocomplete-item:last-child { border-bottom: none; }
+
+    .autocomplete-item:hover {
+      background: rgba(200, 85, 58, 0.08);
+      color: #c8553a;
+    }
   </style>
 </head>
 
@@ -811,7 +851,10 @@
       <div class="accent-line"></div>
       <p class="input-desc">請輸入您的姓名以查詢桌次</p>
       <div class="input-field-wrap">
-        <input id="guest-name" type="text" placeholder="請輸入姓名" autocomplete="off">
+        <div class="input-autocomplete-wrap">
+          <input id="guest-name" type="text" placeholder="請輸入姓名" autocomplete="off">
+          <div id="autocomplete-list" class="autocomplete-list hidden"></div>
+        </div>
         <button id="btn-search" type="button">查詢</button>
       </div>
     </div>
@@ -829,7 +872,7 @@
     <div class="seating-layout">
       <!-- 主場地 -->
       <section class="zone zone-main">
-        <h2 class="zone-title">主場地</h2>
+        <h2 class="zone-title">大廳</h2>
         <div id="grid-main-hall" class="table-grid grid-main"></div>
       </section>
 
@@ -838,7 +881,7 @@
 
       <!-- 包廂 -->
       <section class="zone zone-private">
-        <h2 class="zone-title">包廂</h2>
+        <h2 class="zone-title">包廂區</h2>
         <div id="grid-private-room" class="table-grid grid-private"></div>
       </section>
     </div>

@@ -121,7 +121,7 @@ body {
 }
 
 #guest-name {
-  flex: 1;
+  width: 100%;
   padding: 14px 18px;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -279,7 +279,7 @@ body {
    ═══════════════════════════════════════════ */
 .table-grid {
   display: grid;
-  gap: 18px;
+  gap: 10px;
   width: 100%;
   flex: 1;
   align-content: start;
@@ -288,7 +288,8 @@ body {
 /* 主場地：3 欄，col1/col2 各 3 桌，col3 有 4 桌 */
 .grid-main {
   align-content: space-around;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 64px));
+  justify-content: space-around;
   grid-template-rows: repeat(4, auto);
 }
 .grid-main [data-table-id="1"]  { grid-column: 1; grid-row: 1; }
@@ -304,7 +305,8 @@ body {
 
 /* 包廂：2 欄 S 型 */
 .grid-private {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 64px));
+  justify-content: space-around;
   grid-template-rows: repeat(5, auto);
 }
 .grid-private [data-table-id="11"] { grid-column: 1; grid-row: 1; }
@@ -487,6 +489,45 @@ body {
 
 .nf-modal-btn:hover  { background: var(--color-accent-light); }
 .nf-modal-btn:active { transform: scale(.96); }
+
+/* ═══════════════════════════════════════════
+   AUTOCOMPLETE
+   ═══════════════════════════════════════════ */
+.input-autocomplete-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-card);
+  border: 1.5px solid var(--color-divider);
+  border-radius: var(--radius);
+  overflow: hidden;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+}
+
+.autocomplete-list.hidden { display: none; }
+
+.autocomplete-item {
+  padding: 10px 16px;
+  font-size: .88rem;
+  cursor: pointer;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
+  transition: background .12s;
+}
+
+.autocomplete-item:last-child { border-bottom: none; }
+
+.autocomplete-item:hover {
+  background: var(--color-highlight);
+  color: #7a3050;
+}
 
 @media (min-width: 600px) {
   .table-name { font-size: .8rem; }

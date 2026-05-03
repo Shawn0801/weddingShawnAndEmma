@@ -27,7 +27,10 @@
       <h1 class="input-title">座位查詢</h1>
       <p class="input-desc">請輸入您的姓名以查詢桌次</p>
       <div class="input-field-wrap">
-        <input id="guest-name" type="text" placeholder="請輸入姓名" autocomplete="off">
+        <div class="input-autocomplete-wrap">
+          <input id="guest-name" type="text" placeholder="請輸入姓名" autocomplete="off">
+          <div id="autocomplete-list" class="autocomplete-list hidden"></div>
+        </div>
         <button id="btn-search" type="button">查詢</button>
       </div>
     </div>
@@ -45,7 +48,7 @@
     <div class="seating-layout">
       <!-- 主場地 -->
       <section class="zone zone-main">
-        <h2 class="zone-title">主場地</h2>
+        <h2 class="zone-title">大廳</h2>
         <div id="grid-main-hall" class="table-grid grid-main"></div>
       </section>
 
@@ -54,7 +57,7 @@
 
       <!-- 包廂 -->
       <section class="zone zone-private">
-        <h2 class="zone-title">包廂</h2>
+        <h2 class="zone-title">包廂區</h2>
         <div id="grid-private-room" class="table-grid grid-private"></div>
       </section>
     </div>

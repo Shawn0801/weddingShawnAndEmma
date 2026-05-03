@@ -11,11 +11,15 @@ class DataLoader {
 
   /* ── 主要入口 ── */
   async load() {
-    // 1. 嘗試讀取快取
-    const cached = this._readCache();
-    if (cached) return cached;
+    const isJson = !this.config.dataSource || this.config.dataSource === 'json';
 
-    // 2. 依設定來源載入
+    // JSON 來源是本地檔案，每次直接讀取，不使用快取
+    if (!isJson) {
+      const cached = this._readCache();
+      if (cached) return cached;
+    }
+
+    // 依設定來源載入
     let data;
     switch (this.config.dataSource) {
       case 'google_sheets':
@@ -30,9 +34,9 @@ class DataLoader {
         break;
     }
 
-    // 3. 驗證 + 快取
+    // 驗證（JSON 不寫快取；其他來源才快取）
     this._validate(data);
-    this._writeCache(data);
+    if (!isJson) this._writeCache(data);
     return data;
   }
 
@@ -101,9 +105,10 @@ class DataLoader {
     return result;
   }
 
-  /* ── 靜態 JSON ── */
+  /* ── 靜態 JSON（清除舊快取，確保每次讀最新檔） ── */
   async _loadFromJSON() {
-    const res = await fetch(this.config.jsonPath || './data/sample-seating-data.json');
+    this.clearCache();
+    const res = await fetch(this.config.jsonPath || './data/seating-data.json');
     if (!res.ok) throw new Error('無法載入 JSON 資料');
     return res.json();
   }
