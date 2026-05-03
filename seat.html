@@ -94,41 +94,22 @@
     }
 
     /* ═══════════════════════════════════════════
-       BACK BUTTON
+       RESULT ACTIONS
        ═══════════════════════════════════════════ */
-    .back-btn {
-      position: fixed;
-      top: 1.5rem;
-      left: 1.5rem;
-      z-index: 500;
+    .result-actions {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1rem;
-      background: rgba(42, 42, 40, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--color-divider);
-      border-radius: 50px;
-      color: var(--color-accent);
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      flex-shrink: 0;
+      gap: 12px;
+      margin-top: 18px;
+      margin-bottom: 12px;
+    }
+
+    .result-actions .btn-retry {
+      margin: 0;
+    }
+
+    .back-btn {
       text-decoration: none;
-      cursor: pointer;
-      transition: all 0.4s var(--ease);
-    }
-
-    .back-btn svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .back-btn:hover {
-      background: rgba(200, 85, 58, 0.15);
-      border-color: var(--color-accent);
-      transform: translateX(-2px);
     }
 
     /* ═══════════════════════════════════════════
@@ -434,7 +415,7 @@
     }
 
     .zone-main {
-      flex: 1.2;
+      flex: 1.5;
     }
 
     .zone-title {
@@ -460,41 +441,115 @@
        ═══════════════════════════════════════════ */
     .table-grid {
       display: grid;
-      gap: 10px;
+      gap: 18px;
       width: 100%;
+      flex: 1;
+      align-content: space-around;
     }
 
+    /* 主場地：3 欄，col1/col2 各 3 桌，col3 有 4 桌 */
     .grid-main {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, auto);
     }
 
+    .grid-main [data-table-id="1"] {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .grid-main [data-table-id="2"] {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .grid-main [data-table-id="3"] {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .grid-main [data-table-id="4"] {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .grid-main [data-table-id="5"] {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .grid-main [data-table-id="6"] {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .grid-main [data-table-id="7"] {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    .grid-main [data-table-id="8"] {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    .grid-main [data-table-id="9"] {
+      grid-column: 3;
+      grid-row: 3;
+    }
+
+    .grid-main [data-table-id="10"] {
+      grid-column: 3;
+      grid-row: 4;
+    }
+
+    /* 包廂：2 欄 S 型 */
     .grid-private {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(5, auto);
     }
 
-    /* 桌次卡片 */
+    .grid-private [data-table-id="11"] {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .grid-private [data-table-id="12"] {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .grid-private [data-table-id="13"] {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    .grid-private [data-table-id="14"] {
+      grid-column: 2;
+      grid-row: 4;
+    }
+
+    .grid-private [data-table-id="15"] {
+      grid-column: 1;
+      grid-row: 5;
+    }
+
+    /* 桌次卡片（圓形） */
     .table-card {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 14px 8px;
-      border-radius: var(--table-radius);
+      aspect-ratio: 1;
+      border-radius: 50%;
       text-align: center;
       transition: transform .3s var(--ease), box-shadow .3s var(--ease);
     }
 
-    .table-id {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 600;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
     .table-name {
-      font-size: .75rem;
-      letter-spacing: .04em;
+      font-size: .62rem;
+      letter-spacing: .03em;
+      padding: 0 4px;
     }
 
     /* 高亮 — 用戶所在桌 */
@@ -544,6 +599,7 @@
        RETRY BUTTON
        ═══════════════════════════════════════════ */
     .btn-retry {
+      flex-shrink: 0;
       margin-top: 18px;
       margin-bottom: 12px;
       padding: 12px 36px;
@@ -615,24 +671,8 @@
        RESPONSIVE
        ═══════════════════════════════════════════ */
     @media (min-width: 600px) {
-      .grid-main {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .grid-private {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .table-card {
-        padding: 18px 10px;
-      }
-
-      .table-id {
-        font-size: 1.6rem;
-      }
-
       .table-name {
-        font-size: .82rem;
+        font-size: .8rem;
       }
 
       .seating-layout {
@@ -641,16 +681,8 @@
     }
 
     @media (min-width: 1024px) {
-      .grid-main {
-        grid-template-columns: repeat(5, 1fr);
-      }
-
-      .grid-private {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
       .seating-layout {
-        max-width: 900px;
+        max-width: 820px;
       }
     }
 
@@ -666,19 +698,102 @@
       opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
     }
+
+    /* ═══ NOT-FOUND MODAL ═══ */
+    .nf-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 24px;
+      animation: nf-fade-in .2s ease;
+    }
+
+    .nf-modal-overlay.hidden {
+      display: none;
+    }
+
+    @keyframes nf-fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .nf-modal {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 32px 28px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
+      animation: nf-modal-up .25s ease;
+    }
+
+    @keyframes nf-modal-up {
+      from {
+        transform: translateY(14px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .nf-modal-icon {
+      font-size: 1.8rem;
+      color: #c8553a;
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+
+    .nf-modal-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .nf-modal-text {
+      font-size: .88rem;
+      color: #7a7a7a;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .nf-modal-btn {
+      display: inline-block;
+      padding: 11px 36px;
+      background: #c8553a;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: .95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+
+    .nf-modal-btn:hover {
+      background: #e07455;
+    }
+
+    .nf-modal-btn:active {
+      transform: scale(.96);
+    }
   </style>
 </head>
 
 <body>
-
-  <!-- 返回首頁 -->
-  <a href="index.html" class="back-btn" id="back-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-      stroke-linejoin="round">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-    <span>Back</span>
-  </a>
 
   <!-- ══ 載入畫面 ══ -->
   <div id="screen-loading" class="screen visible">
@@ -691,7 +806,7 @@
   <!-- ══ 姓名輸入畫面 ══ -->
   <div id="screen-input" class="screen hidden">
     <div class="input-card">
-      <p class="input-subtitle">Shawn & Emma's Wedding</p>
+
       <h1 class="input-title">座位查詢</h1>
       <div class="accent-line"></div>
       <p class="input-desc">請輸入您的姓名以查詢桌次</p>
@@ -728,7 +843,10 @@
       </section>
     </div>
 
-    <button class="btn-retry" type="button">重新查詢</button>
+    <div class="result-actions">
+      <button class="btn-retry" type="button">重新查詢</button>
+      <a href="index.html" class="btn-retry back-btn">返回</a>
+    </div>
   </div>
 
   <!-- ══ 查無結果畫面 ══ -->
@@ -741,64 +859,75 @@
     </div>
   </div>
 
+  <!-- ══ 查無結果彈窗 ══ -->
+  <div id="modal-not-found" class="nf-modal-overlay hidden" aria-modal="true" role="dialog">
+    <div class="nf-modal">
+      <div class="nf-modal-icon">✦</div>
+      <p class="nf-modal-title">查無此賓客</p>
+      <p class="nf-modal-text">請輸入正確姓名<br>或問卷調查填寫的主要姓名</p>
+      <button id="btn-nf-close" class="nf-modal-btn" type="button">重新輸入</button>
+    </div>
+  </div>
+
   <!-- Scripts — 引用 chairForU 的 JS 模組 -->
   <script src="chairForU/js/utils.js"></script>
   <script src="chairForU/js/DataLoader.js"></script>
   <script src="chairForU/js/SearchEngine.js"></script>
   <script src="chairForU/js/UIRenderer.js"></script>
-  <script>
-    /**
-     * App — 座位查詢系統入口（適配 seat.html 路徑）
-     */
-    (async function initApp() {
-      try {
-        // 1. 載入設定（指向 chairForU/data/ 目錄）
-        const cfgRes = await fetch('./chairForU/data/config.json');
-        const config = await cfgRes.json();
+    <script>
+      /**
+       * App — 座位查詢系統入口（適配 seat.html 路徑）
+       */
+      (async function initApp() {
+        try {
+          // 1. 載入設定（指向 chairForU/data/ 目錄）
+          const cfgRes = await fetch('./chairForU/data/config.json');
+          const config = await cfgRes.json();
 
-        // 修正 jsonPath 以適配 seat.html 所在的根目錄
-        if (config.jsonPath && config.jsonPath.startsWith('./data/')) {
-          config.jsonPath = './chairForU/data/' + config.jsonPath.replace('./data/', '');
-        }
-
-        // 2. 載入資料
-        const loader = new DataLoader(config);
-        const data = await loader.load();
-
-        // 3. 建立搜尋引擎
-        const engine = new SearchEngine();
-        engine.buildIndex(data.tables);
-
-        // 4. 初始化 UI
-        const ui = new UIRenderer({
-          tables: data.tables,
-          searchEngine: engine,
-          onSearch(query) {
-            const result = engine.search(query);
-            ui.renderResult(result);
+          // 修正 jsonPath 以適配 seat.html 所在的根目錄
+          if (config.jsonPath && config.jsonPath.startsWith('./data/')) {
+            config.jsonPath = './chairForU/data/' + config.jsonPath.replace('./data/', '');
           }
-        });
 
-        // 5. 顯示輸入畫面
-        ui.showScreen('input');
+          // 2. 載入資料
+          const loader = new DataLoader(config);
+          const data = await loader.load();
 
-      } catch (err) {
-        console.error('初始化失敗:', err);
-        const el = document.getElementById('screen-loading');
-        if (el) {
-          const p = document.createElement('p');
-          p.className = 'error-msg';
-          p.textContent = '載入失敗，請重新整理頁面';
-          const small = document.createElement('small');
-          small.textContent = err.message;
-          p.appendChild(document.createElement('br'));
-          p.appendChild(small);
-          el.textContent = '';
-          el.appendChild(p);
+          // 3. 建立搜尋引擎
+          const engine = new SearchEngine();
+          engine.buildIndex(data.tables);
+
+          // 4. 初始化 UI
+          const ui = new UIRenderer({
+            tables: data.tables,
+            searchEngine: engine,
+            onSearch(query) {
+              const result = engine.search(query);
+              ui.renderResult(result);
+            }
+          });
+
+          // 5. 顯示輸入畫面
+          ui.showScreen('input');
+
+        } catch (err) {
+          console.error('初始化失敗:', err);
+          const el = document.getElementById('screen-loading');
+          if (el) {
+            const p = document.createElement('p');
+            p.className = 'error-msg';
+            p.textContent = '載入失敗，請重新整理頁面';
+            const small = document.createElement('small');
+            small.textContent = err.message;
+            p.appendChild(document.createElement('br'));
+            p.appendChild(small);
+            el.textContent = '';
+            el.appendChild(p);
+          }
         }
-      }
-    })();
-  </script>
+      })();
+    </script>
+  </div>
 </body>
 
 </html>

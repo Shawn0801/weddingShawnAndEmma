@@ -1,0 +1,96 @@
+{
+  "tables": [
+    {
+      "id": 1,
+      "name": "永恆",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 2,
+      "name": "幸福",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 3,
+      "name": "美滿",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 4,
+      "name": "甜蜜",
+      "location": "main_hall",
+      "guests": [
+        "鄒毓凱"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "歡喜",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 6,
+      "name": "圓滿",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 7,
+      "name": "如意",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 8,
+      "name": "吉祥",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 9,
+      "name": "和樂",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 10,
+      "name": "豐盛",
+      "location": "main_hall",
+      "guests": []
+    },
+    {
+      "id": 11,
+      "name": "牡丹廳",
+      "location": "private_room",
+      "guests": []
+    },
+    {
+      "id": 12,
+      "name": "玫瑰廳",
+      "location": "private_room",
+      "guests": []
+    },
+    {
+      "id": 13,
+      "name": "百合廳",
+      "location": "private_room",
+      "guests": []
+    },
+    {
+      "id": 14,
+      "name": "蘭花廳",
+      "location": "private_room",
+      "guests": []
+    },
+    {
+      "id": 15,
+      "name": "茉莉廳",
+      "location": "private_room",
+      "guests": []
+    }
+  ]
+}

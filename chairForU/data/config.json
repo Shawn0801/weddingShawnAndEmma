@@ -1,7 +1,7 @@
 {
   "dataSource": "json",
+  "jsonPath": "./data/seating-data.json",
   "googleSheetId": "",
   "googleSheetGid": "0",
-  "jsonPath": "./data/sample-seating-data.json",
-  "cacheDuration": 3600
+  "cacheDuration": 300
 }

@@ -38,25 +38,9 @@ class SearchEngine {
     const q = Utils.normalize(query);
     if (!q) return { results: [], matchType: 'empty' };
 
-    // Level 1: 精確匹配
+    // 精確匹配
     const exact = this.index.get(q);
     if (exact) return { results: [exact], matchType: 'exact' };
-
-    // Level 2: 部分匹配（包含搜尋）
-    const partial = this.allGuests.filter(g => g.key.includes(q) || q.includes(g.key));
-    if (partial.length > 0) {
-      return { results: partial.map(g => ({ tableId: g.tableId, tableName: g.tableName, location: g.location, guestName: g.guestName })), matchType: 'partial' };
-    }
-
-    // Level 3: 模糊匹配（Levenshtein ≤ 2）
-    const fuzzy = this.allGuests
-      .map(g => ({ ...g, dist: Utils.levenshtein(q, g.key) }))
-      .filter(g => g.dist <= 2)
-      .sort((a, b) => a.dist - b.dist);
-
-    if (fuzzy.length > 0) {
-      return { results: fuzzy.map(g => ({ tableId: g.tableId, tableName: g.tableName, location: g.location, guestName: g.guestName })), matchType: 'fuzzy' };
-    }
 
     return { results: [], matchType: 'not_found' };
   }

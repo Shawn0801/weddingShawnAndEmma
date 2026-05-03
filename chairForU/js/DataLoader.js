@@ -110,8 +110,8 @@ class DataLoader {
 
   /* ── 自建 API ── */
   async _loadFromAPI() {
-    if (!this.config.apiEndpoint) throw new Error('API endpoint 未設定');
-    const res = await fetch(this.config.apiEndpoint);
+    if (!this.config.apiEndpoint) throw new Error('API endpoint 未設定，請更新 chairForU/data/config.json');
+    const res = await fetch(this.config.apiEndpoint, { redirect: 'follow' });
     if (!res.ok) throw new Error('API 回應錯誤');
     return res.json();
   }

@@ -18,6 +18,7 @@ class UIRenderer {
     this.nameInput = document.getElementById('guest-name');
     this.searchBtn = document.getElementById('btn-search');
     this.retryBtns = document.querySelectorAll('.btn-retry');
+    this.nfModal = document.getElementById('modal-not-found');
     this.resultInfo = document.getElementById('result-info');
     this.mainHallGrid = document.getElementById('grid-main-hall');
     this.privateRoomGrid = document.getElementById('grid-private-room');
@@ -28,10 +29,13 @@ class UIRenderer {
   /* ── 事件綁定 ── */
   _bindEvents() {
     this.searchBtn.addEventListener('click', () => this._handleSearch());
-    this.nameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') this._handleSearch();
-    });
     this.retryBtns.forEach(btn => btn.addEventListener('click', () => this.showScreen('input')));
+    document.getElementById('btn-nf-close').addEventListener('click', () => {
+      this.nfModal.classList.add('hidden');
+    });
+    this.nfModal.addEventListener('click', e => {
+      if (e.target === this.nfModal) this.nfModal.classList.add('hidden');
+    });
   }
 
   _handleSearch() {
@@ -60,7 +64,7 @@ class UIRenderer {
     const { results, matchType } = searchResult;
 
     if (matchType === 'not_found' || results.length === 0) {
-      this.showScreen('notFound');
+      this.nfModal.classList.remove('hidden');
       return;
     }
 
@@ -80,7 +84,7 @@ class UIRenderer {
   _renderInfo(match, allResults) {
     let html = `
       <p class="result-guest-name">${this._esc(match.guestName)}，您好！</p>
-      <p class="result-table">您的座位在 <strong>${this._esc(match.tableName)}</strong>（第 ${this._esc(String(match.tableId))} 桌）</p>
+      <p class="result-table">您的座位在 <strong>${this._esc(match.tableName)}</strong></p>
       <p class="result-location">${match.location === 'private_room' ? '📍 包廂區' : '📍 主場地'}</p>
     `;
     if (allResults.length > 1) {
@@ -100,8 +104,7 @@ class UIRenderer {
   _tableCard(table, highlightId) {
     const isActive = table.id === highlightId;
     return `
-      <div class="table-card ${isActive ? 'table-active' : 'table-inactive'}">
-        <span class="table-id">${this._esc(String(table.id))}</span>
+      <div class="table-card ${isActive ? 'table-active' : 'table-inactive'}" data-table-id="${table.id}">
         <span class="table-name">${this._esc(table.name)}</span>
       </div>
     `;
