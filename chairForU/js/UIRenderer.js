@@ -8,8 +8,8 @@ class UIRenderer {
     this.searchEngine = searchEngine;
     this.onSearch = onSearch;
 
-    // 所有賓客姓名（供 autocomplete）
-    this.allGuestNames = tables.flatMap(t => t.guests || []);
+    // 所有賓客姓名（供 autocomplete，去重）
+    this.allGuestNames = [...new Set(tables.flatMap(t => t.guests || []))];
 
     // DOM 快取
     this.screens = {
